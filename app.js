@@ -36,7 +36,7 @@ app.get('/users', user.list);
 
 // clean up 
 var cleanup = function() {
-
+	console.log("cleanup");
 
 };
 
