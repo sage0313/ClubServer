@@ -2,12 +2,15 @@
   "name": "application-name",
   "version": "0.0.1",
   "private": true,
+  "description": "Club Server for Activities",
   "scripts": {
     "start": "node app.js"
   },
   "dependencies": {
     "express": "3.4.8",
-    "jade": "*"
+    "jade": "*",
+    "socket.io": "~0.9.6",
+    "mime": "~1.2.7"
   },
   "devDependencies": {
     "grunt": "^0.4.4",
