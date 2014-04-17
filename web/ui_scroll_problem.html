@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+	<!-- Bootstrap -->
+	<link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<style>
+	.forFixedHeight {
+		position: absolute;
+		height:200px;
+		width:100%;
+		overflow-y:scroll;
+	}
+	</style>
+</head>
+<body style="overflow:hidden;">
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script src="./bootstrap/js/bootstrap.min.js"></script>
+
+	<script>
+
+	var resizeLayout = function(){
+		var forFixedHeights = $(".forFixedHeight");
+
+		forFixedHeights.each(function(bo){
+			var elem = $(forFixedHeights[bo]);
+			var computedHeight = elem.parents().outerHeight()-elem.prev().outerHeight();
+			elem.css("height" ,computedHeight+"px");
+		});
+	};
+	var test = function(){
+		var forFixedHeights = $(".forFixedHeight");
+		$(forFixedHeights[0]).append("asdf<br/>");
+
+	}
+
+
+	window.onresize = resizeLayout;
+	window.onload = resizeLayout;
+
+
+
+	window.onresize = resizeLayout;
+	window.onload = function(){
+		resizeLayout();
+}
+
+
+	console.log("adf");
+
+	$(document).hotKey({key:'3', modifier:'shift'}, funcntion(e){
+		console.log(e);
+	});
+	console.log("adf");
+
+</script>
+
+
+<table style="border-collapse:separate;border-spacing:5px;position:absolute; height:100%; width:100%;">
+	<tr><td colspan=3 style="height:30px;">로그인 정보?
+		<button class="btn btn-primary" onclick="test();">테스트</button>
+		<button class="btn btn-primary">로그아웃</button>
+	</td></tr>
+	<tr>
+		<td style="vertical-align: top;width:33%;">
+			<div class="panel panel-primary" 
+			style="position:relative;height:100%;">
+			<div class="panel-heading">
+				tab 1 
+			</div>
+			<div class="panel-body forFixedHeight" >
+				<!-- Tab 1 Contents -->
+				ff<br/>ff<br/>f<br/>f<br/>f<br/>ff<br/>ff<br/>f<br/>f<br/>f<br/>ff<br/>ff<br/>f<br/>f<br/>f<br/>ff<br/>ff<br/>f<br/>f<br/>f<br/>
+			</div>
+
+		</div>
+	</td>
+	<td style="vertical-align: top;width:33%;">
+		<div class="panel panel-primary" style="position:relative;height:100%;">
+			<div class="panel-heading" >
+				tab 2
+			</div>
+			<div class="panel-body forFixedHeight" >
+				<!-- Tab 2 Contents -->
+				ff<br/>ff<br/>f<br/>f<br/>f<br/>ff<br/>ff<br/>f<br/>f<br/>f<br/>ff<br/>
+			</div>
+
+		</div>
+	</td>
+	<td style="vertical-align: top;width:33%;">
+		<div class="panel panel-primary" style="position:relative;height:100%;">
+			<div class="panel-heading">
+				tab 3
+			</div>
+			<div class="panel-body forFixedHeight" >
+				<!-- Tab 3 Contents -->
+				ff<br/>
+			</div>
+		</div>
+	</td>
+</tr>
+</table></body></html>
