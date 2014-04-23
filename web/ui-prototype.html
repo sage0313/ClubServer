@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Ticketing</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+	<!-- Bootstrap -->
+	<link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<style>
+	.forFixedHeight {
+		position: absolute;
+		/*height:200px;*/
+		width:100%;
+		overflow-y:scroll;
+	}	
+
+}
+
+	</style>
+
+</head>
+<body style="overflow:hidden;bottom-padding:none;">
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script src="./bootstrap/js/bootstrap.min.js"></script>
+	<script src="./bootstrap/js/bootstrap.min.js"></script>
+
+	<script>
+
+	var resizeLayout = function(){
+		var forFixedHeights = $(".forFixedHeight");
+
+		forFixedHeights.each(function(bo){
+			var elem = $(forFixedHeights[bo]);
+			var computedHeight = elem.parents().outerHeight()-elem.prev().outerHeight();
+			elem.css("height" ,computedHeight+"px");
+		});
+	};
+	var test = function(){
+		var forFixedHeights = $(".forFixedHeight");
+		$(forFixedHeights[0]).append("asdf<br/>");
+
+	}
+
+
+	window.onresize = resizeLayout;
+	window.onload = function(){
+		$('.dropdown-toggle').dropdown();
+		resizeLayout();
+		$(document.body).keyup(function(e){
+			if(e.keyCode==114){
+				$("#newEmployeeSearchModal").modal({show:true, keyboard:true});
+				console.log("F3 - new Search Employee");
+				$('#newEmployeeSearchModal').on('shown.bs.modal', function () {
+					$('#newEmployeeSearchModalInput').focus();
+				})
+			}
+		});
+
+		var querymap = parseQueryString(location.href);
+		if(typeof querymap["query"]!= 'undefined'){
+			console.log("title change");
+			$("title").html(querymap["query"] + " by "+querymap["type"]);
+		}
+
+		
+	};
+
+
+	var newEmployeeSearch  = function(){
+		console.log("newEmployeeSearch");
+		var inputquery=$('#newEmployeeSearchModalInput').val();
+		var inputtype = $('#newEmployeeSearchModalSelect').val();
+		window.open("?query="+inputquery+"&type="+inputtype, '_blank');
+	};
+
+
+
+// util js
+function parseQueryString(url) {
+	var queryStringIdx = url.indexOf('?');
+	var pairs = url.substr(queryStringIdx + 1)
+	.split('&')
+	.map(function(p) { return p.split('='); });
+	var result = { };
+	for (var i = 0; i < pairs.length; i++) {
+		result[decodeURIComponent(pairs[i][0])] = decodeURIComponent(pairs[i][1]);
+	}
+
+	return result;
+}
+
+</script>
+<!-- Modal -->
+<div class="modal fade" id="newEmployeeSearchModal" tabindex="-1" role="dialog" aria-labelledby="newEmployeeSearchModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="newEmployeeSearchModalLabel">새 직원 검색</h4>
+			</div>
+			<div class="modal-body" style="text-align:center;">
+				<form action="javascript:newEmployeeSearch();" class="form-inline" >
+					<select class="form-control " id="newEmployeeSearchModalSelect">
+						<option >통합검색</option>
+						<option value="2">사번검색</option>
+						<option value="3">이름검색</option>
+						<option value="4">이메일검색</option>
+						<option value="5">전화번호검색</option>
+					</select>
+					<input class="form-control " id="newEmployeeSearchModalInput"/>
+					<button type="submit" class="btn btn-primary" >검색</button>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close(ESC) </button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Main body Start --> 
+<table style="border-collapse:separate;border-spacing:5px;position:absolute; height:100%; width:100%;">
+	<tr><td colspan=3 style="height:30px;text-align:right;">
+		<div style="text-align:left;display:inline-block;">
+			<ul class="nav nav-pills">
+				
+				<li class="disabled" ><a href="#">Notifications</a></li>
+				<li class="active">
+					<a class="dropdown-toggle" data-toggle="dropdown" href="#">0</a>
+					<ul class="dropdown-menu dropdown-menu-right">
+						<li><a href="#" >asd f sadfasdfasdfasdsfsfsadfsdasd</a></li>
+						<li><a href="#" >asdfasdf </a></li>
+					</ul>
+				</li>
+				<li class="disabled"><a href="#"> </a></li>
+				<li class="disabled" ><a href="#">홍길동 logged in. </a></li>
+				<li class="active"><a href="#">로그아웃</a></li>
+			</ul>
+		</div>
+	</td></tr>
+	<tr>
+		<td style="vertical-align: top;width:33%;">
+			<div class="panel panel-primary" 
+			style="position:relative;height:100%;">
+			<div class="panel-heading">
+				직원 검색 
+			</div>
+			<div class="panel-body forFixedHeight" style="overflow-y:auto; ">
+				<form class="form-inline">
+					<select class="form-control input-sm">
+						<option>통합검색</option>
+						<option>사번검색</option>
+						<option>이름검색</option>
+						<option>이메일검색</option>
+						<option>전화번호검색</option>
+					</select>
+					<input class="form-control input-sm" />
+					<button class="btn btn-primary btn-sm">검색</button>
+				</form>
+				<br/>
+				<table class="table table-condensed">
+					<tr>
+						<td>이름(사번)</td>
+						<td>이메일</td>
+						<td>전화번호</td>
+					</tr>
+					<tr>
+						<td>홍길동(012345)</td>
+						<td>kdhong@test.com</td>
+						<td>010-1234-4321</td>
+					</tr>
+					<tr class="success">
+						<td>박문수(543210)</td>
+						<td>mspark@test.com</td>
+						<td>010-1234-1234</td>
+					</tr>
+				</table>					
+
+				f<br/>f<br/>f<br/>ff<br/>f<br/>f<br/>ff<br/>f<br/>f<br/>ff<br/>ff<br/>ff<br/>f<br/>f<br/>f<br/></div>
+
+			</div>
+		</td>
+		<td style="vertical-align: top;width:33%;">
+			<div class="panel panel-primary" style="position:relative;height:100%;">
+				<div class="panel-heading" >
+					티켓팅
+				</div>
+				<div class="panel-body forFixedHeight" style="overflow-y:scroll;">
+					* 직원 정보 <br/>
+					 <table class="table table-condensed">
+						<tr>
+							<td>사번</td>
+							<td>043210</td>
+						</tr>
+						<tr>
+							<td>이름</td>
+							<td>박문수</td>
+						</tr>
+						<tr>
+							<td>이메일</td>
+							<td>mspark@test.com</td>
+						</tr>
+						<tr>
+							<td>전화번호</td>
+							<td>010-4995-1234</td>
+						</tr>
+					</table>
+					* 보유 티켓정보<br/>
+					<table class="table table-condensed">
+						<tr>
+							<td>티켓명</td>
+							<td>잔여수량</td>
+						</tr>
+						<tr>
+							<td>티켓명</td>
+							<td>잔여수량</td>
+						</tr>
+
+					</table>
+					* Cart 처리 박스 
+				</div>
+
+			</div>
+		</td>
+		<td style="vertical-align: top;width:33%;">
+			<div class="panel panel-primary" style="position:relative;height:100%;">
+				<div class="panel-heading">
+					티켓팅 히스토리
+				</div>
+				<div class="panel-body forFixedHeight" style="overflow-y:auto;">asdfasdf</div>
+
+			</div>
+		</td>
+	</tr>
+</table>
+
+</body>
+
+
+</html>
