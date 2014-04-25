@@ -11,8 +11,19 @@ var routes = require('./routes');
 var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
+var mysql = require('mysql');
+var commonService = require('./services/commonService'),
+
+var connection = mysql.createConnection({
+	host: 'localhost',
+	port: 3306,
+	user: 'admin',
+	password: 'admin12345',
+	database: 'familypicnicDB'
+});
 
 var app = express();
+
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -33,6 +44,35 @@ if ('development' === app.get('env')) {
 
 app.get('/', routes.index);
 app.get('/users', user.list);
+
+
+/********************
+ * gateway
+ ********************/
+app.get('/gateway', function(req, res) {
+	commonService.findAll(req, res);
+});
+
+app.get('/gateway/:id', function(req, res) {
+	commonService.findById(req, res);
+});
+
+app.post('/gateway', function(req, res) {
+	commonService.addGW(req, res);
+});
+
+app.put('/gateway/:id', function(req, res) {
+	commonService.updateGW(req, res);
+});
+
+app.delete('/gateway/:id', function(req, res) {
+	commonService.deleteGW(req, res);
+});
+
+app.post('/gateway/auth', function(req, res) {
+	commonService.authGW(req, res);
+});
+
 
 
 // clean up 
