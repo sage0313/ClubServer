@@ -1,11 +1,21 @@
 /* ticketdb_ddl */
 
+DROP TABLE IF EXISTS `NOTIFICATION`;
+DROP TABLE IF EXISTS `ITEM_IN_CART`;
+DROP TABLE IF EXISTS `CART`;
+DROP TABLE IF EXISTS `ITEM`;
+DROP TABLE IF EXISTS `EMPLOYEE`;
+DROP TABLE IF EXISTS `USER`;
+
+
 CREATE TABLE `user` ( 
 	`id`     bigint(20) AUTO_INCREMENT NOT NULL,
 	`userid` varchar(128) NOT NULL,
 	`username` varchar(128) NOT NULL,
 	`userpwd`	varchar(128) NOT NULL,
-	PRIMARY KEY(`id`)
+	`role` varchar(12) ,
+	PRIMARY KEY(`id`), 
+	UNIQUE (`userid`)
 );
 
 CREATE TABLE `employee` ( 
@@ -24,11 +34,12 @@ CREATE TABLE `item` (
 	`name` varchar(100) NOT NULL,
 	`description`	varchar(500) NOT NULL,
 	`type`	varchar(20) NOT NULL,
+    `money` bigint(20) NOT NULL,
 	PRIMARY KEY(`id`)
 );
 
 CREATE TABLE `cart` ( 
-	`id`       bigint(20) NOT NULL,
+	`id`       bigint(20) AUTO_INCREMENT NOT NULL,
 	`emp_id`    	bigint(20) NOT NULL,
 	`user_id`   bigint(20) NOT NULL,
 	`msg`      	varchar(1024) NULL,
@@ -47,10 +58,10 @@ ALTER TABLE `cart` ADD CONSTRAINT `cart_emp_fk`
 CREATE TABLE `item_in_cart` ( 
 	cart_id     bigint(20) NOT NULL,
 	item_id     bigint(20) NOT NULL,
-	spent_count	bigint(20) NULL,
-	spent_money	bigint(20) NULL,
-	PRIMARY KEY (`cartid`, `itemid`)
+	spend_count	bigint(20) NULL,
+	PRIMARY KEY (`cart_id`, `item_id`)
 	);
+
 ALTER TABLE `item_in_cart` ADD CONSTRAINT `item_in_cart_user_fk` 
 	FOREIGN KEY(`cart_id`) REFERENCES `cart`(`id`);
 
@@ -62,11 +73,14 @@ ALTER TABLE `item_in_cart` ADD CONSTRAINT `item_in_cart_emp_fk`
 CREATE TABLE `notification` (
 	id bigint(20) AUTO_INCREMENT NOT NULL, 
 	user_id bigint(20) NOT NULL,
-	action varchar(64) NOT NULL,
+	action varchar(64) NOT NULL, 
 	msg varchar(512) NOT NULL,
+	status varchar(20) NOT NULL,  
 	PRIMARY KEY (`id`)
 );
 
 ALTER TABLE `notification` ADD CONSTRAINT `notification_user_fk` 
 	FOREIGN KEY(`user_id`) REFERENCES `user`(`id`);
+
+
 
