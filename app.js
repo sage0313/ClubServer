@@ -108,7 +108,7 @@ app.get('/', function(req,res){
  });
 
  app.get('/employee', function(req,res){
- 	employeeService.SearchEmployee(req,res);
+ 	employeeService.searchEmployee(req,res);
 	// TODO dev
 });
 

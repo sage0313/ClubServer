@@ -19,3 +19,13 @@ exports.execute = function(req, res, callback){
 		connection.release();
 	});
 }
+
+exports.returnCommon = function(err, rows){
+	console.log(rows);
+	if(err){
+		res.send({"status":"error","error":""+err});
+	}
+	if(rows){
+		res.send({"status":"success","ret":rows});
+	}
+}

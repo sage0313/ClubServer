@@ -39,11 +39,10 @@
 				<div class="modal-body" style="text-align:center;">
 					<form action="javascript:newEmployeeSearch();"  class="form-inline" >
 						<select class="form-control " id="newEmployeeSearchModalSelect">
-							<option >통합검색</option>
-							<option value="2">사번검색</option>
-							<option value="3">이름검색</option>
-							<option value="4">이메일검색</option>
-							<option value="5">전화번호검색</option>
+							<option value="byall">통합검색</option>
+							<option value="bysn">사번검색</option>
+							<option value="byname">이름검색</option>
+							<option value="byphone">전화번호검색</option>
 						</select>
 						<input class="form-control " id="newEmployeeSearchModalInput"/>
 						<button type="submit" class="btn btn-primary" >검색</button>
@@ -86,11 +85,10 @@
 				<div class="panel-body forFixedHeight" style="overflow-y:auto; ">
 					<form class="form-inline" onsubmit="return searchEmployee();" action="#">
 						<select id="employeeSearchSelect" class="form-control input-sm">
-							<option>통합검색</option>
-							<option>사번검색</option>
-							<option>이름검색</option>
-							<option>이메일검색</option>
-							<option>전화번호검색</option>
+							<option value="byall">통합검색</option>
+							<option value="bysn">사번검색</option>
+							<option value="byname">이름검색</option>
+							<option value="byphone">전화번호검색</option>
 						</select>
 						<input class="form-control input-sm" id="EmployeeSearchInput" />
 						<button class="btn btn-primary btn-sm" type="submit">검색</button>

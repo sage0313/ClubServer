@@ -10,14 +10,14 @@ exports.signcheck = function(userid, userpwd, conn, callback){
 	conn.query(query,function(err, rows, fields) {
 		callback(err,rows);
 	});
-}
+};
 
 exports.selectUserById = function(id, conn, callback){
 	var query = " select id, userid, username, role from user where id = "+conn.escape(id)+ " ";
 	conn.query(query,function(err, rows, fields) {
 		callback(err,rows);
 	});	
-}
+};
 
 
 exports.insertUser = function(userinfo, conn, callback){
