@@ -109,9 +109,11 @@ app.get('/', function(req,res){
 
  app.get('/employee', function(req,res){
  	employeeService.searchEmployee(req,res);
-	// TODO dev
 });
 
+app.get('/employee/:eid/carts', function(req,res){
+	employeeService.getCartsByEmployee(req,res);
+});
 
 
 

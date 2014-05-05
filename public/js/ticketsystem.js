@@ -3,6 +3,8 @@
 
 var signedUser = null;
 var master_item = null;
+var itemcount = 0;
+
 window.onresize = resizeLayout;
 window.onload = function(){
 	$.ajax({
@@ -101,6 +103,7 @@ var searchEmployee = function(type,query){
 
 var selectEmployee = function(eid){
 	console.log("selectEmployee "+eid);
+	// employee info 
 	$.ajax({
 		type:"get",
 		url:"/employee/"+eid,
@@ -110,10 +113,10 @@ var selectEmployee = function(eid){
 			if(data.status=="success"){
 				var o = data.ret;
 				var str ="";
-					str += "<tr><td>SN</td><td>"+o.sn+"</td></tr>";
-					str += "<tr><td>Name</td><td>"+o.name+"</td></tr>";
-					str += "<tr><td>Phone</td><td>"+o.phone+"</td></tr>";
-					str += "<tr><td>Part</td><td>"+o.part+"</td></tr>";
+				str += "<tr><td>SN</td><td>"+o.sn+"</td></tr>";
+				str += "<tr><td>Name</td><td>"+o.name+"</td></tr>";
+				str += "<tr><td>Phone</td><td>"+o.phone+"</td></tr>";
+				str += "<tr><td>Part</td><td>"+o.part+"</td></tr>";
 
 				$("#employee_info_tbody").html(str);
 
@@ -131,10 +134,60 @@ var selectEmployee = function(eid){
 			}
 		}
 	});
+	// employee's carts history
+	$.ajax({
+		type:"get",
+		url:"/employee/"+eid+"/carts",
+		dataType :"JSON",
+		success : function(data){
+			console.log(data);
+			if(data.status=="success"){
+				var str = ""; 
+				for(var oi in data.ret){
+					var o = data.ret[oi];
+					str += "<div class='panel panel-info'>"
+					str += "<div class='panel-heading' >";
+					str += "User : "+ o.user_id ;
+					str += "</div>";
+					str += "<div class='panel-body'> ";
+					str +=" Msg : "+ o.msg;
+					str += "<table class='table table-condensed'>";
+					str += "<tr><td>Item</td><td>Count</td></tr>";
+					for(var ii in o.items){
+						var item = o.items[ii];
+						str +="<tr><td>"+item.item_name+"</td>";
+						str +="<td>"+item.item_cnt+"</td></tr>";
+					}
+					str += "</table>"
+					str += "</div>";
+					str += "</div>";
+				}
+
+				console.log(str);
+				$("#employee_carts_div").html(str);
+			}
+		}
+	});
 }
 
 var newItemIntoCart = function(item_id, cnt){
-	
+	console.log("newItemIntoCart");
+	var str ="";
+	str += "<tr>";
+	str += "<td><select class='form-control'>";
+	for(var i in master_item){
+		var item = master_item[i];
+		str += " <option value="+item.id;
+		if(item_id==item.id) str+=" selected "
+			str += " >"+item.name+"</option>"
+	}
+	str +=" </select></td>";
+	str += "<td><input  type='text' class='form-control'/></td>";
+	str += "<td><span></span> W</td>";
+	str += "<td></td>";
+	str += "</tr>";
+
+	$("#item_in_cart_tbody").append(str);
 }
 
 var setupSignedUser = function(user){

@@ -27,3 +27,20 @@ exports.insertCart = function(cartarg, conn, callback) {
 		callback(err,rows);
 	});
 }
+
+exports.selectItemsInCartsByEmployee = function(eidarg, conn, callback){
+	var eid = conn.escape(eidarg);
+	var query =" select c.id cart_id, c.emp_id, emp_id, c.user_id user_id, c.msg msg, c.timestamp tmstmp ";
+	query += " , i.id item_id, i.name item_name, i.description item_desc, i.type item_type, i.money item_money ";
+	query += " , ic.spend_count cnt  ";
+	query += "  from cart c , item i, item_in_cart ic ";
+	query += "  where c.emp_id=" + eid;
+	query += "  and c.id = ic.cart_id ";
+	query += "  and ic.item_id = i.id ";
+
+	console.log(query);
+	
+	conn.query(query,function(err, rows, fields) {
+		callback(err,rows);
+	});
+}

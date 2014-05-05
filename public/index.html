@@ -127,7 +127,7 @@
 							<td>Money</td>
 						</tr>
 						<tbody id="employee_hasitems_tbody"></tbody>
-						
+
 					</table>
 					<div style="text-align:right">
 						<button class="btn btn-primary">모두적용</button>
@@ -140,12 +140,14 @@
 						<div class="panel-body">
 							<table class="table table-condensed">
 								<tr>
-									<td>항목</td>
-									<td>수량</td>
-									<td>삭제</td>
+									<td>Item</td>
+									<td>Count</td>
+									<td>Money</td>
+									<td>ETC</td>
 								</tr>
+								<tbody id="item_in_cart_tbody"></tbody>
 								<tr>
-									<td colspan=3><button class="btn btn-primary">새 항목 추가</button></td>
+									<td colspan=3><button class="btn btn-primary" onclick="newItemIntoCart();">새 항목 추가</button></td>
 								</tr>
 								<tr>
 									<td><input type="checkbox" /> change status to done.</td>
@@ -163,7 +165,9 @@
 				<div class="panel-heading">
 					티켓팅 히스토리
 				</div>
-				<div class="panel-body forFixedHeight" style="overflow-y:auto;">asdfasdf</div>
+				<div class="panel-body forFixedHeight" style="overflow-y:auto;" >
+<div id="employee_carts_div"></div>
+				</div>
 
 			</div>
 		</td>
