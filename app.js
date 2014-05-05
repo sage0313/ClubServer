@@ -133,11 +133,9 @@ app.get('/', function(req,res){
  ********************/
  app.get('/cart/:cid', function(req,res){
  	cartService.getCart(req,res);
-	// TODO dev
 });
  app.post('/cart', function(req,res){
  	cartService.createCart(req,res);
-	// TODO dev
 });
 
 /********************
