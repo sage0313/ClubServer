@@ -13,7 +13,8 @@ exports.getEmployee = function(req, res){
 			}
 			if(rows){
 				res.send({"status":"success","ret":rows});
-			});
+			}
+		});
 	});
 }
 
