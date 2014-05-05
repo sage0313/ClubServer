@@ -56,11 +56,11 @@ ALTER TABLE `cart` ADD CONSTRAINT `cart_emp_fk`
 
 
 CREATE TABLE `item_in_cart` ( 
-	cart_id     bigint(20) NOT NULL,
-	item_id     bigint(20) NOT NULL,
-	spend_count	bigint(20) NULL,
+	`cart_id`     bigint(20) NOT NULL,
+	`item_id`     bigint(20) NOT NULL,
+	`spend_count`	bigint(20) NULL,
 	PRIMARY KEY (`cart_id`, `item_id`)
-	);
+);
 
 ALTER TABLE `item_in_cart` ADD CONSTRAINT `item_in_cart_user_fk` 
 	FOREIGN KEY(`cart_id`) REFERENCES `cart`(`id`);
