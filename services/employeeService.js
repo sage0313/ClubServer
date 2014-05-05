@@ -3,6 +3,7 @@
 
 var base = require('./base');
 var employeeDao = require('./dao/employeeDao');
+var itemDao = require('./dao/itemDao');
 
 exports.getEmployee = function(req, res){
 	base.execute(req,res, function(req, res, conn){
@@ -12,7 +13,16 @@ exports.getEmployee = function(req, res){
 				res.send({"status":"error","error":""+err});
 			}
 			if(rows){
-				res.send({"status":"success","ret":rows});
+				if(rows.length==1){
+					var ret = rows[0];
+					itemDao.selectHasItemsByEmployee(ret.id, conn, function(err, rows){
+						ret.hasitems = rows;
+						res.send({"status":"success","ret":ret});
+					});
+				}else{
+					res.send({"status":"success","ret":rows});	
+				}
+				
 			}
 		});
 	});

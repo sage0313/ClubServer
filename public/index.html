@@ -96,105 +96,79 @@
 					<br/>
 					<table class="table table-condensed">
 						<tr>
-							<td>이름(사번)</td>
-							<td>이메일</td>
-							<td>전화번호</td>
+							<td>SN</td>
+							<td>Name</td>
+							<td>Phone</td>
+							<td>Part</td>
 						</tr>
-						<tbody>
-							<tr>
-								<td>홍길동(012345)</td>
-								<td>kdhong@test.com</td>
-								<td>010-1234-4321</td>
-							</tr>
-							<tr class="success">
-								<td>박문수(543210)</td>
-								<td>mspark@test.com</td>
-								<td>010-1234-1234</td>
-							</tr>
+						<tbody id="search_result_tbody">
 						</tbody>
 					</table>					
-
-					f<br/>f<br/>f<br/>ff<br/>f<br/>f<br/>ff<br/>f<br/>f<br/>ff<br/>ff<br/>ff<br/>f<br/>f<br/>f<br/></div>
-
 				</div>
-			</td>
-			<td style="vertical-align: top;width:33%;">
-				<div class="panel panel-primary" style="position:relative;height:100%;">
-					<div class="panel-heading" >
-						티켓팅
-					</div>
-					<div class="panel-body forFixedHeight" style="overflow-y:scroll;">
-						* 직원 정보 <br/>
-						<table class="table table-condensed">
-							<tr>
-								<td>사번</td>
-								<td>043210</td>
-							</tr>
-							<tr>
-								<td>이름</td>
-								<td>박문수</td>
-							</tr>
-							<tr>
-								<td>이메일</td>
-								<td>mspark@test.com</td>
-							</tr>
-							<tr>
-								<td>전화번호</td>
-								<td>010-4995-1234</td>
-							</tr>
-						</table>
-						* 보유 티켓정보<br/>
-						<table class="table table-condensed">
-							<tr>
-								<td>티켓명</td>
-								<td>잔여수량</td>
-							</tr>
-							<tr>
-								<td>티켓명</td>
-								<td>잔여수량</td>
-							</tr>
 
-						</table>
-						<div>
-							<button class="btn btn-primary">모두적용</button>
+			</div>
+		</td>
+		<td style="vertical-align: top;width:33%;">
+			<div class="panel panel-primary" style="position:relative;height:100%;">
+				<div class="panel-heading" >
+					티켓팅
+				</div>
+				<div class="panel-body forFixedHeight" style="overflow-y:scroll;">
+					* 직원 정보 <br/>
+					<table class="table table-condensed">
+						<tbody id="employee_info_tbody" ></tbody>
+					</table>
+					* 보유 티켓정보<br/>
+					<table class="table table-condensed">
+						<tr>
+							<td>Name</td>
+							<td>Type</td>
+							<td>Count</td>
+							<td>Money</td>
+						</tr>
+						<tbody id="employee_hasitems_tbody"></tbody>
+						
+					</table>
+					<div style="text-align:right">
+						<button class="btn btn-primary">모두적용</button>
+					</div>
+					* Cart 처리 박스 
+					<div class="panel panel-info">
+						<div class="panel-heading" >
+							티켓팅
 						</div>
-						* Cart 처리 박스 
-						<div class="panel panel-info">
-							<div class="panel-heading" >
-								티켓팅
-							</div>
-							<div class="panel-body">
-								<table class="table table-condensed">
-									<tr>
-										<td>항목</td>
-										<td>수량</td>
-										<td>삭제</td>
-									</tr>
-									<tr>
-										<td colspan=3><button class="btn btn-primary">새 항목 추가</button></td>
-									</tr>
-									<tr>
-										<td><input type="checkbox" /> change status to done.</td>
-									</tr>
-								</table>
-								<button class="btn btn-primary">submit</button>
-							</div>
+						<div class="panel-body">
+							<table class="table table-condensed">
+								<tr>
+									<td>항목</td>
+									<td>수량</td>
+									<td>삭제</td>
+								</tr>
+								<tr>
+									<td colspan=3><button class="btn btn-primary">새 항목 추가</button></td>
+								</tr>
+								<tr>
+									<td><input type="checkbox" /> change status to done.</td>
+								</tr>
+							</table>
+							<button class="btn btn-primary">submit</button>
 						</div>
 					</div>
-
 				</div>
-			</td>
-			<td style="vertical-align: top;width:33%;">
-				<div class="panel panel-primary" style="position:relative;height:100%;">
-					<div class="panel-heading">
-						티켓팅 히스토리
-					</div>
-					<div class="panel-body forFixedHeight" style="overflow-y:auto;">asdfasdf</div>
 
+			</div>
+		</td>
+		<td style="vertical-align: top;width:33%;">
+			<div class="panel panel-primary" style="position:relative;height:100%;">
+				<div class="panel-heading">
+					티켓팅 히스토리
 				</div>
-			</td>
-		</tr>
-	</table>
+				<div class="panel-body forFixedHeight" style="overflow-y:auto;">asdfasdf</div>
+
+			</div>
+		</td>
+	</tr>
+</table>
 
 </body>
 
