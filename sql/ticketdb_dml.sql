@@ -10,6 +10,7 @@ insert into item(name, description, type, money) values('Child Cash Ticket', 'Ch
 
 
 insert into user(userid, username, userpwd, role) values('sksim', 'SungKyu Sim', password('passw0rd'), 'admin');
+insert into user(userid, username, userpwd, role) values('yjkim', 'Yongjun Kim', password('passw0rd'), 'admin');
 insert into user(userid, username, userpwd, role) values('test01', 'test01user', password('passw0rd'), 'user');
 
 insert into employee(sn, name, phone, part, status) values('012345', 'SungKyu Sim', '010-0000-0000', 'KLAB', 'Init');
