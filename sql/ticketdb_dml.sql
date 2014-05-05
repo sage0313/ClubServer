@@ -1,4 +1,3 @@
-select * from item;
 
 /* ticketdb_dml.sql */
 insert into item(name, description, type, money) values('Adult Ticket', 'Adult Everland Ticket','ticket', 0);
@@ -18,7 +17,20 @@ insert into employee(sn, name, phone, part, status) values('123456', 'YongJun Ki
 insert into employee(sn, name, phone, part, status) values('234567', 'Nuri Kim', '010-2222-2222', 'GB', 'Init');
 insert into employee(sn, name, phone, part, status) values('345678', 'Youngju Jung', '010-3333-3333', 'GTS', 'Init');
 
-insert into cart(emp_id,user_id, msg) values(1, 1, "test01");
+insert into cart(emp_id,user_id, msg) values(4, 2, "inital ticket");
+insert into item_in_cart(cart_id, item_id, spend_count) values(1, 1, 2);	
+insert into item_in_cart(cart_id, item_id, spend_count) values(1, 2, 0);
+insert into item_in_cart(cart_id, item_id, spend_count) values(1, 3, 2);
+
+insert into cart(emp_id,user_id, msg) values(4, 2, "ticket received");
+insert into item_in_cart(cart_id, item_id, spend_count) values(2, 1, -1);	
+insert into item_in_cart(cart_id, item_id, spend_count) values(2, 3, -1);
+
+insert into cart(emp_id,user_id, msg) values(3, 2, "inital ticket");
+insert into item_in_cart(cart_id, item_id, spend_count) values(3, 1, 2);	
+insert into item_in_cart(cart_id, item_id, spend_count) values(3, 2, 2);
+insert into item_in_cart(cart_id, item_id, spend_count) values(3, 3, 4);
+
 
 
 /* admin user */ 

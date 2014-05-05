@@ -120,12 +120,12 @@ app.get('/employee/:eid/carts', function(req,res){
 /********************
  * item
  ********************/
- app.get('/item', function(req,res){
+app.get('/item', function(req,res){
  	itemService.getItems(req,res);
 	// TODO dev 
 });
 
- app.get('/item/:uid', function(req,res){
+app.get('/item/:uid', function(req,res){
  	itemService.getItem(req,res);
 	// TODO dev 
 });
@@ -133,12 +133,14 @@ app.get('/employee/:eid/carts', function(req,res){
 /********************
  * cart
  ********************/
- app.get('/cart/:cid', function(req,res){
- 	cartService.getCart(req,res);
+app.get('/cartinfo/:eid', function(req,res){
+	cartService.getTicketInfofromCarts(req, res);
 });
- app.post('/cart', function(req,res){
- 	cartService.createCart(req,res);
+/*
+app.post('/cart', function(req,res){
+	cartService.createCart(req,res);
 });
+*/
 
 /********************
  * notification

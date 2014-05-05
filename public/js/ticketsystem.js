@@ -109,7 +109,7 @@ var selectEmployee = function(eid){
 		url:"/employee/"+eid,
 		dataType:"JSON",
 		success:function(data){
-			console.log(data);
+			console.log("ajax result: " + data);
 			if(data.status=="success"){
 				var o = data.ret;
 				var str ="";
@@ -119,21 +119,41 @@ var selectEmployee = function(eid){
 				str += "<tr><td>Part</td><td>"+o.part+"</td></tr>";
 
 				$("#employee_info_tbody").html(str);
+			}
+		}
+	});
 
+	// employee's ticket info
+	$.ajax({
+		type: "get",
+		url: "/cartinfo/"+eid,
+		dataType: "JSON",
+		success : function(data) {
+			console.log('[ajax result] ticket - status: ' + data.status);
+			console.log('[ajax result] ticket - ret: ' + data.ret);
+
+			if (data.status == "success") {
 				var hi_str = "";
-				for(var hii in o.hasitems){
-					var hio = o.hasitems[hii];
+				for(var hii in data.ret){
+					var hio = data.ret[hii];
+					console.log('hio: ' + hio.name);
+					console.log('hio: ' + hio.type);
+					console.log('hio: ' + hio.count);
+					
 					hi_str += "<tr>";
 					hi_str += "<td>"+hio.name+"</td>";
 					hi_str += "<td>"+hio.type+"</td>";
-					hi_str += "<td>"+hio.cnt+"</td>";
-					hi_str += "<td>"+hio.money+"</td>";
+					hi_str += "<td>"+hio.count+"</td>";
+					hi_str += "<td> null </td>";
 					hi_str += "</tr>";
 				}
 				$("#employee_hasitems_tbody").html(hi_str);
 			}
 		}
 	});
+
+
+
 	// employee's carts history
 	$.ajax({
 		type:"get",

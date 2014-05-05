@@ -28,6 +28,21 @@ exports.insertCart = function(cartarg, conn, callback) {
 	});
 }
 
+
+exports.selectTicketStatusByEmployee = function(eidarg, conn, callback) {
+	var eid = conn.escape(eidarg);
+	var query	= " select i.name, i.type, sum(ic.spend_count) "
+				+ " from cart c, item_in_cart ic, item i"
+				+ " where c.emp_id=" + eid + " and c.id=ic.cart_id and ic.item_id = i.id"
+				+ " group by i.name, i.type;";	 
+	console.log(query);
+	
+	conn.query(query,function(err, rows, fields) {
+		callback(err,rows);
+	});	
+}
+
+
 exports.selectItemsInCartsByEmployee = function(eidarg, conn, callback){
 	var eid = conn.escape(eidarg);
 	var query =" select c.id cart_id, c.emp_id, emp_id, c.user_id user_id, c.msg msg, c.timestamp tmstmp ";
