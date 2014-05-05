@@ -53,14 +53,19 @@ var searchEmployee = function(type,query){
 		console.log("query and type is undefined. so research. ");
 		query = $("#EmployeeSearchInput").val();
 		type = $("#EmployeeSearchSelect").val();
-	}	
+	}
+	$("#EmployeeSearchInput").val(query);	
 	$("title").html(query+" by "+type);
 	$.ajax({
 		type:"get",
-		url:'/employee',
+		url:'/employee?query='+query+"&type="+type,
 		dataType:"JSON",
+		// data:{"query":query, "type":type},
 		success:function(data){
-			// TODO search returns
+			console.log(data);
+			if(data.status=="success"){
+				$("#search_result_tbody").html("<tr><td>test</td></tr>");
+			}
 		},
 		error:function(err){
 			console.log("error=",err);

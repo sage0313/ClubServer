@@ -45,8 +45,6 @@ app.use(express.cookieParser());
 app.use(express.session({ secret: "keyboard cat" }));
 
 app.use(express.methodOverride());
-app.use(express.cookieDecoder());
-app.use(express.session());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
