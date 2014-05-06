@@ -42,7 +42,7 @@ CREATE TABLE `cart` (
 	`id`       bigint(20) AUTO_INCREMENT NOT NULL,
 	`emp_id`    	bigint(20) NOT NULL,
 	`user_id`   bigint(20) NOT NULL,
-	`msg`      	varchar(1024) NULL,
+	`msg`      	varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
 	`timestamp`	timestamp NULL ,
 	PRIMARY KEY(`id`)
 );
