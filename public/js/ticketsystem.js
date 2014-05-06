@@ -232,25 +232,35 @@ var createNewCart = function() {
 	cart_data['item_in_cart'] = ticketinfo;
 	console.log('cart_data: ' + JSON.stringify(cart_data));
 
-	$.ajax({
-			type:"post",
-			url:"/cart",
-			data : cart_data,
-			success : function(data){
-				console.log(data);
-				if(data.status=="success") {
-					alert('Process completed');
+	
+	var confirm_msg = "Message: " + cart_data['msg'] + '\n';
+	for (var i in ticketinfo) {
+		confirm_msg += 'item_id: ' + ticketinfo[i].item_id + ', spend_count: ' + ticketinfo[i].spend_count + '\n';
+	}
+	var final_confirm = confirm(confirm_msg, "티켓 적용 내역입니다. 정말 수행하시겠습니까?");
 
-					msgbox.value = "";
-					for (var i = 0; i < rCount; i++) {
-						tbl.deleteRow(0);
+	if (final_confirm == true) {
+		$.ajax({
+				type:"post",
+				url:"/cart",
+				data : cart_data,
+				success : function(data){
+					console.log(data);
+					if(data.status=="success") {
+						alert('Process completed');
+
+						msgbox.value = "";
+						for (var i = 0; i < rCount; i++) {
+							tbl.deleteRow(0);
+						}
+						
+					} else {
+						alert('Failed to be done');
 					}
-					
-				} else {
-					alert('Failed to be done');
 				}
-			}
-	});	
+		});	
+	}
+	
 }
 
 var newItemIntoCart = function(item_id, cnt){
