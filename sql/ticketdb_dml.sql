@@ -19,7 +19,6 @@ insert into employee(sn, name, phone, part, status) values('345678', 'Youngju Ju
 
 insert into cart(emp_id,user_id, msg) values(4, 2, "inital ticket");
 insert into item_in_cart(cart_id, item_id, spend_count) values(1, 1, 2);	
-insert into item_in_cart(cart_id, item_id, spend_count) values(1, 2, 0);
 insert into item_in_cart(cart_id, item_id, spend_count) values(1, 3, 2);
 
 insert into cart(emp_id,user_id, msg) values(4, 2, "ticket received");
@@ -30,6 +29,8 @@ insert into cart(emp_id,user_id, msg) values(3, 2, "inital ticket");
 insert into item_in_cart(cart_id, item_id, spend_count) values(3, 1, 2);	
 insert into item_in_cart(cart_id, item_id, spend_count) values(3, 2, 2);
 insert into item_in_cart(cart_id, item_id, spend_count) values(3, 3, 4);
+
+
 
 
 

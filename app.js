@@ -136,11 +136,11 @@ app.get('/item/:uid', function(req,res){
 app.get('/cartinfo/:eid', function(req,res){
 	cartService.getTicketInfofromCarts(req, res);
 });
-/*
+
 app.post('/cart', function(req,res){
-	cartService.createCart(req,res);
+	cartService.createCart(req, res);
 });
-*/
+
 
 /********************
  * notification

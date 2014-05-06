@@ -43,66 +43,36 @@ exports.getTicketInfofromCarts = function(req, res) {
 				res.send({"status":"success","ret":ticketlist});				
 			}
 
-			/*
-			console.log(err);
-			console.log(rows);
-			var cartlist = new Object();
-			for(var i in rows){
-				var o = rows[i];
-				if(!cartlist[o.cart_id]){
-					var cart = new Object();
-					cart.cart_id = o.cart_id;
-					cart.emp_id = o.emp_id;
-					cart.user_id = o.user_id;
-					cart.msg = o.msg;
-					cart.tmstmp = o.tmstmp;
-					cart.items = [];
-					cartlist[o.cart_id] = cart;
-				}
-				var cart = cartlist[o.cart_id];
-				var items = cart.items;
-
-				var item = new Object();
-				item.item_id = o.item_id;
-				item.item_name = o.item_name;
-				item.item_type = o.item_type;
-				item.item_money = o.item_money;
-				item.item_cnt = o.cnt;
-
-				items.push(item);
-				
-
-			}
-
-			res.send({"status":"success","ret":cartlist});
-			*/
 		});
 
-	});
-}
-
-
-exports.getCart = function(req, res){
-	base.execute(req, res, function(req, res, conn){
-		cartDao.selectCartById(req.params.cid, conn, function(err, rows){
-			console.log(rows);
-			if(err){
-				res.send({"status":"error","error":""+err});
-			} else {
-				res.send({"status":"success","ret":rows});
-			}
-		});
 	});
 }
 
 
 exports.createCart = function(req, res){
 	base.execute(req, res, function(req, res, conn){
+
+		console.log('createCart');
+		console.log('args ' + JSON.stringify(req.body));
+
 		cartDao.insertCart(req.body, conn, function(err, rows){
-			console.log(rows);
+			console.log('createcart rows:' + rows);
 			if(err){
 				res.send({"status":"error","error":""+err});
 			} else {
+				var cart_id = rows.insertId;
+				var item_in_cart = req.body.item_in_cart;
+
+				for (var index in item_in_cart) {
+					console.log('item_info: ' + item_in_cart[index]);
+					var query_info = item_in_cart[index];
+					query_info['cart_id'] = cart_id;
+					cartDao.insertItemInCart(query_info, conn, function(err, rows) {
+						if (err) {
+							res.send({"status":"error","error":""+err});
+						}
+					});
+				}
 				res.send({"status":"success","ret":rows});
 			}
 		});

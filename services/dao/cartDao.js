@@ -4,28 +4,36 @@
 
 var base = require('../base');
 
-exports.selectCartById = function(idarg, conn, callback){
-	var cid = conn.escape(idarg);
-	var query = "select emp_id, user_id, msg, timestamp from cart where id = "+ cid;
-	console.log("query="+query);
-	conn.query(query,function(err, rows, fields) {
-		callback(err, rows);
-	});	
-}
-
 exports.insertCart = function(cartarg, conn, callback) {
 	var emp_id = conn.escape(cartarg.emp_id);
 	var user_id = conn.escape(cartarg.user_id);
 	var msg = conn.escape(cartarg.msg);
-	var timestamp = Math.round(+new Date()/1000);
 
-	var query = "insert into cart(emp_id, user_id, msg, timestamp) "
-			  + "values( "+emp_id+","+user_id+","+msg+","+timestamp+");";
+	var query = "insert into cart(emp_id, user_id, msg) "
+			  + "values( "+emp_id+","+user_id+","+msg+");";
 	console.log("query="+query);
 
-	conn.query(query,function(err, rows, fields) {
+	conn.query(query,function(err, rows) {
+		console.log('query result err:' + err);
+		console.log('query result rows:' + JSON.stringify(rows));
 		callback(err,rows);
 	});
+}
+
+exports.insertItemInCart = function(itemargs, conn, callback) {
+	var cart_id = conn.escape(itemargs.cart_id);
+	var item_id = conn.escape(itemargs.item_id);
+	var spend_count = conn.escape(itemargs.spend_count);
+
+	var query = "insert into item_in_cart(cart_id, item_id, spend_count) "
+			  + "values( "+cart_id+","+item_id+","+spend_count+");";
+	console.log("query="+query);
+
+	conn.query(query,function(err, rows) {
+		console.log('query result err:' + err);
+		console.log('query result rows:' + JSON.stringify(rows));
+		callback(err,rows);
+	});	
 }
 
 
@@ -37,7 +45,7 @@ exports.selectTicketStatusByEmployee = function(eidarg, conn, callback) {
 				+ " group by i.name, i.type;";	 
 	console.log(query);
 	
-	conn.query(query,function(err, rows, fields) {
+	conn.query(query,function(err, rows) {
 		callback(err,rows);
 	});	
 }
@@ -55,7 +63,7 @@ exports.selectItemsInCartsByEmployee = function(eidarg, conn, callback){
 
 	console.log(query);
 	
-	conn.query(query,function(err, rows, fields) {
+	conn.query(query,function(err, rows) {
 		callback(err,rows);
 	});
 }

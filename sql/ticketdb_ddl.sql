@@ -53,6 +53,8 @@ ALTER TABLE `cart` ADD CONSTRAINT `cart_user_fk`
 ALTER TABLE `cart` ADD CONSTRAINT `cart_emp_fk` 
 	FOREIGN KEY(`emp_id`) REFERENCES `employee`(`id`);
 
+ALTER TABLE `cart` CHANGE `timestamp` `timestamp`
+	TIMESTAMP ON UPDATE CURRENT_TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL;
 
 
 CREATE TABLE `item_in_cart` ( 

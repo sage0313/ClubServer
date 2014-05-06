@@ -4,9 +4,15 @@
 var signedUser = null;
 var master_item = null;
 var itemcount = 0;
+var curr_uid;
+var curr_eid;
 
 window.onresize = resizeLayout;
 window.onload = function(){
+	
+	curr_uid = -1;
+	curr_eid = -1;
+
 	$.ajax({
 		type:"get",
 		url:"/item",
@@ -103,6 +109,7 @@ var searchEmployee = function(type,query){
 
 var selectEmployee = function(eid){
 	console.log("selectEmployee "+eid);
+	curr_eid = eid;
 	// employee info 
 	$.ajax({
 		type:"get",
@@ -134,8 +141,9 @@ var selectEmployee = function(eid){
 
 			if (data.status == "success") {
 				var hi_str = "";
-				for(var hii in data.ret){
-					var hio = data.ret[hii];
+				var o = data.ret;
+				for(var hii in o){
+					var hio = o[hii];
 					console.log('hio: ' + hio.name);
 					console.log('hio: ' + hio.type);
 					console.log('hio: ' + hio.count);
@@ -144,7 +152,7 @@ var selectEmployee = function(eid){
 					hi_str += "<td>"+hio.name+"</td>";
 					hi_str += "<td>"+hio.type+"</td>";
 					hi_str += "<td>"+hio.count+"</td>";
-					hi_str += "<td> null </td>";
+					hi_str += "<td> </td>";
 					hi_str += "</tr>";
 				}
 				$("#employee_hasitems_tbody").html(hi_str);
@@ -160,14 +168,14 @@ var selectEmployee = function(eid){
 		url:"/employee/"+eid+"/carts",
 		dataType :"JSON",
 		success : function(data){
-			console.log(data);
+			console.log(JSON.stringify(data.ret));
 			if(data.status=="success"){
 				var str = ""; 
 				for(var oi in data.ret){
 					var o = data.ret[oi];
 					str += "<div class='panel panel-info'>"
 					str += "<div class='panel-heading' >";
-					str += "User : "+ o.user_id ;
+					str += "User : "+ o.user_id + " ( " + o.tmstmp + " )";
 					str += "</div>";
 					str += "<div class='panel-body'> ";
 					str +=" Msg : "+ o.msg;
@@ -190,8 +198,65 @@ var selectEmployee = function(eid){
 	});
 }
 
+var createNewCart = function() {
+	console.log('one action, one cart');
+	var cart_data = {};
+
+	var msgbox = document.getElementById('cart_message');
+	var msg = msgbox.value;
+	
+	console.log('message: ' + msg);
+	console.log('emp_id: ' + curr_eid);
+	console.log('user_id: ' + curr_uid);
+	cart_data['msg'] = msg;
+	cart_data['emp_id'] = parseInt(curr_eid);
+	cart_data['user_id'] = parseInt(curr_uid);
+
+	var tbl = document.getElementById('item_in_cart_tbody');
+	var rCount = tbl.rows.length;
+
+	var ticketinfo = [];
+	console.log('table rows: ' + rCount);	
+	for (var i = 0; i < rCount; i++) {
+		
+		var select = tbl.rows.item(i).getElementsByTagName('select');
+		var item_id = select[0].value;
+		console.log('item_id: ' + parseInt(item_id));
+
+		var input = tbl.rows.item(i).getElementsByTagName('input');
+		var spend_count = input[0].value;
+		console.log('spend_count: ' + parseInt(spend_count));
+		
+		ticketinfo.push({'item_id':item_id, 'spend_count':spend_count});
+	}
+	cart_data['item_in_cart'] = ticketinfo;
+	console.log('cart_data: ' + JSON.stringify(cart_data));
+
+	$.ajax({
+			type:"post",
+			url:"/cart",
+			data : cart_data,
+			success : function(data){
+				console.log(data);
+				if(data.status=="success") {
+					alert('Process completed');
+
+					msgbox.value = "";
+					for (var i = 0; i < rCount; i++) {
+						tbl.deleteRow(0);
+					}
+					
+				} else {
+					alert('Failed to be done');
+				}
+			}
+	});	
+}
+
 var newItemIntoCart = function(item_id, cnt){
 	console.log("newItemIntoCart");
+	console.log("item_id: " + item_id);
+	console.log("cnt: " + cnt);
 	var str ="";
 	str += "<tr>";
 	str += "<td><select class='form-control'>";
@@ -202,16 +267,28 @@ var newItemIntoCart = function(item_id, cnt){
 			str += " >"+item.name+"</option>"
 	}
 	str +=" </select></td>";
-	str += "<td><input  type='text' class='form-control'/></td>";
+	str += "<td><input type='text' class='form-control'/></td>";
 	str += "<td><span></span> W</td>";
-	str += "<td></td>";
+	str += "<td><button class='close' onclick='deleteItemInCart(parentNode.parentNode.rowIndex);'>&#10006;</button></td>";
 	str += "</tr>";
 
 	$("#item_in_cart_tbody").append(str);
 }
 
+
+var deleteItemInCart = function(row) {
+	console.log("deleteItemInCart");
+	console.log("row: " + row);
+	var tbl = document.getElementById('item_in_cart_tbody');
+	tbl.deleteRow(row-1); 
+}
+
 var setupSignedUser = function(user){
 	$("#span_loginusername").html(user.username);
+
+	console.log('signedUser: ' + user);
+	console.log('::: ' + JSON.stringify(user));
+	curr_uid = user.id;
 };
 
 var newEmployeeSearch  = function(){

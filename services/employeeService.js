@@ -31,7 +31,6 @@ exports.getEmployee = function(req, res){
 
 exports.searchEmployee = function(req,res){
 	base.execute(req,res, function(req, res, conn){
-		console.log(req);
 		var query = req.query.query;
 		var type = req.query.type;
 		if(type=="byall"){
