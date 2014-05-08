@@ -2,10 +2,12 @@
 /* ticketdb_dml.sql */
 insert into item(name, description, type, money) values('Adult Ticket', 'Adult Everland Ticket','ticket', 0);
 insert into item(name, description, type, money) values('Child Ticket', 'Child Everland Ticket','ticket', 0);
-insert into item(name, description, type, money) values('Employee Gift', 'Employee Gift' , 'ticket', 0);
-insert into item(name, description, type, money) values('Adult Cash Ticket', 'Adult Everland Cash Ticket','ticket', 20000);
-insert into item(name, description, type, money) values('Child Cash Ticket', 'Child Everland Cash Ticket','ticket', 18000);
-
+insert into item(name, description, type, money) values('Employee Gift', 'Employee Gift Ticket' , 'ticket', 0);
+insert into item(name, description, type, money) values('Children Gift', 'Children Gift Ticket' , 'ticket', 0);
+insert into item(name, description, type, money) values('Food and Beverage', 'Food and Beverage Ticket' , 'ticket', 0);
+insert into item(name, description, type, money) values('Snack', 'Snack Ticket' , 'ticket', 0);
+insert into item(name, description, type, money) values('Adult Cash Ticket', 'Adult Everland Cash Ticket','cash', 20000);
+insert into item(name, description, type, money) values('Child Cash Ticket', 'Child Everland Cash Ticket','cash', 18000);
 
 
 insert into user(userid, username, userpwd, role) values('sksim', 'SungKyu Sim', password('passw0rd'), 'admin');

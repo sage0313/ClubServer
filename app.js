@@ -22,14 +22,6 @@
  
  var app = express();
 
- var connection = mysql.createConnection({
- 	host: 'localhost',
- 	port: 3306,
- 	user: 'admin',
- 	password: 'admin12345',
- 	database: 'familypicnicDB'
- });
-
 
 // all environments
 app.set('port', process.env.PORT || 3000);
