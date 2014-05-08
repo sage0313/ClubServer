@@ -22,7 +22,7 @@
 </head>
 <body style="overflow:hidden;bottom-padding:none;">
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script src="./js/jquery.min.js"></script>
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
 	<script src="../bootstrap/js/bootstrap.min.js"></script>
 	
@@ -147,11 +147,12 @@
 								</tr>
 								<tbody id="item_in_cart_tbody"></tbody>
 								<tr>
-									<td colspan=3><button class="btn btn-primary" onclick="newItemIntoCart();">새 항목 추가</button></td>
+									<td colspan="4"> money : </td>
 								</tr>
 							</table>
+							<button class="btn btn-primary" onclick="newItemIntoCart();">새 항목 추가</button><br/>
 							<input type="checkbox" /> change status to done.
-							<textarea id="cart_message" style="resize: none; wrap: hard;" rows=3 cols=64> </textarea>
+							<textarea class="form-control" id="cart_message" style="resize: none; wrap: hard;" rows=3 cols=64> </textarea>
 							<button class="btn btn-primary" onclick="createNewCart();">submit</button>
 						</div>
 					</div>
