@@ -115,6 +115,7 @@ var searchEmployee = function(type,query){
 
 var selectEmployee = function(eid){
 	console.log("selectEmployee "+eid);
+	$("#employee_cartaddeditems_tbody").html('');
 	curr_eid = eid;
 	// employee info 
 	$.ajax({
@@ -144,9 +145,9 @@ var selectEmployee = function(eid){
 					hi_str += "<tr>";
 					hi_str += "<td title='"+hio.description+"'>"+hio.name+"</td>";
 					hi_str += "<td>"+hio.type+"</td>";
-					hi_str += "<td>"+hio.cnt+" ea";
+					hi_str += "<td>"+hio.cnt+"<span id='hasitem_cnt_change_"+hio.id+"' class='hasitem_cnt_change'></span> ea";
 					if(hio.money!=0){
-						hi_str+=" / &#8361 "+hio.money*hio.cnt + "" ;
+						hi_str+=" <br/> &#8361 "+hio.money*hio.cnt + " <span id='hasitem_money_change_"+hio.id+"' class='hasitem_money_change'></span>" ;
 						cnt_cash += hio.cnt;
 						sum_cash += (hio.cnt*hio.money);
 					}else{
@@ -166,40 +167,42 @@ var selectEmployee = function(eid){
 		}
 	});
 
+refreshEmployeeCartHistory(eid);
+}
 
-	// employee's carts history
-	$.ajax({
-		type:"get",
-		url:"/employee/"+eid+"/carts",
-		dataType :"JSON",
-		success : function(data){
-			console.log("rt", data.ret);
-			if(data.status=="success"){
-				var str = ""; 
-				for(var oi in data.ret){
-					var o = data.ret[oi];
-					str += "<div class='panel panel-info'>"
-					str += "<div class='panel-heading' >";
-					str += "User : "+ o.user_name + " ( <span class='timecolumn' t="+(o.tmstmp*1000)+">" + getTimeColumnString(o.tmstmp*1000) +  "</span> )";
-					str += "</div>";
-					str += "<div class='panel-body'> ";
-					str +=" Msg : "+ o.msg;
-					str += "<table class='table table-condensed'>";
-					str += "<tr><td>Item</td><td>Count</td></tr>";
-					for(var ii in o.items){
-						var item = o.items[ii];
-						str +="<tr><td>"+item.item_name+"</td>";
-						str +="<td>"+item.item_cnt+"</td></tr>";
+var refreshEmployeeCartHistory = function(eid){
+		// employee's carts history
+		$.ajax({
+			type:"get",
+			url:"/employee/"+eid+"/carts",
+			dataType :"JSON",
+			success : function(data){
+				console.log("rt", data.ret);
+				if(data.status=="success"){
+					var str = ""; 
+					for(var oi in data.ret){
+						var o = data.ret[oi];
+						str += "<div class='panel panel-info'>"
+						str += "<div class='panel-heading' >";
+						str += "User : "+ o.user_name + " ( <span class='timecolumn' t="+(o.tmstmp*1000)+">" + getTimeColumnString(o.tmstmp*1000) +  "</span> )";
+						str += "</div>";
+						str += "<table class='panel-body table table-condensed'>";
+						str += "<tr><td>Item</td><td>Count</td></tr>";
+						for(var ii in o.items){
+							var item = o.items[ii];
+							str +="<tr><td>"+item.item_name+"</td>";
+							str +="<td>"+item.item_cnt+"</td></tr>";
+						}
+						str += "<tr><td colspan=2><span class='glyphicon glyphicon-comment'></span> Message : "+o.msg+"</td></tr>";
+						str += "</table>"
+						str += "</div>";
 					}
-					str += "</table>"
-					str += "</div>";
-					str += "</div>";
-				}
 
-				$("#employee_carts_div").html(str);
+					$("#employee_carts_div").html(str);
+				}
 			}
-		}
-	});
+		});
+
 }
 
 var createNewCart = function() {
@@ -251,13 +254,13 @@ var createNewCart = function() {
 			success : function(data){
 				console.log(data);
 				if(data.status=="success") {
-					alert('Process completed');
+					//alert('Process completed');
 
 					msgbox.value = "";
 					for (var i = 0; i < rCount; i++) {
 						tbl.deleteRow(0);
 					}
-
+					selectEmployee(selectedEmployee.id);
 				} else {
 					alert('Failed to be done');
 				}
@@ -284,7 +287,7 @@ var newItemIntoCart = function(item_id, cnt){
 
 	// item type
 	str += "<td>";
-	str += "	<select id='item_type_"+itemcount+"' class='form-control input-sm'>";
+	str += "	<select id='item_type_"+itemcount+"' class='form-control input-sm' onchange='onchange_item_count();' >";
 	for(var i in master_item){
 		var item = master_item[i];
 		str += " <option value="+item.id;
@@ -292,17 +295,13 @@ var newItemIntoCart = function(item_id, cnt){
 			str+=" selected ";
 			initemcount = item.money * cnt;
 		}
-			str += " >"+item.name+"</option>";
+		str += " >"+item.name+"</option>";
 	}
 	str += "	</select>";
 	str += "</td>";
 	// count
 	str += "<td>";
-	str += "	<input id='item_count_"+itemcount+"' onkeyup='onchange_item_count();' type='text' class='form-control input-xm col-xs-1 item_count' value="+cnt+" />";
-	str += "</td>";
-	// count inout toggle
-	str += "<td style='vertical-align:middle;'>";
-	str += "	<span class='glyphicon glyphicon-open item_toggle' id='item_inout_toggle' onclick='toggle_item_count("+itemcount+")'>Out</span>";
+	str += "	<input id='item_count_"+itemcount+"' onkeyup='onchange_item_count();' type='text' class='form-control input-xm item_count' value="+cnt+" />";
 	str += "</td>";
 	// money
 	str += "<td style='vertical-align:middle;'>";
@@ -315,17 +314,59 @@ var newItemIntoCart = function(item_id, cnt){
 
 var onchange_item_count = function(){
 	console.log("onchange_item_count");
+	var cartresult = {};
 	$(".itemincart_tr").each(function(idx, obj){
-		console.log($(obj).attr("value"));
+		var cntid = $(obj).attr("value");
+		var typeid = $("#item_type_"+cntid+" option:selected").attr("value");
+		var itemcnt = parseInt($("#item_count_"+cntid).val());
+		if(isNaN(itemcnt)) itemcnt=0;
+		var item = getItemFromMaster(typeid);
+		if(item.money!=0){
+			// TODO money change
+		}
+		console.log("cntid", cntid,"typeid", typeid,"itemcnt",itemcnt);
+		if(!cartresult[typeid]){
+			cartresult[typeid] = 0;
+		};
+		cartresult[typeid] += itemcnt;
 	});
-}
-var toggle_item_count = function(itemcountnumber){
-	console.log(itemcountnumber);
-	console.log($("#item_type_"+itemcountnumber).val());
-	console.log($("#item_money_"+itemcountnumber).val());
-	console.log($("#item_count_"+itemcountnumber).val());
 
+
+	var temp_hasitems = {};
+	for(var idx in selectedEmployee.hasitems){
+		temp_hasitems[selectedEmployee.hasitems[idx].id] = selectedEmployee.hasitems[idx];
+	}
+
+	$(".hasitem_cnt_change").each(function(idx,obj){$(obj).html('');});
+	$(".hasitem_money_change").each(function(idx,obj){$(obj).html('');});
+	$("#employee_cartaddeditems_tbody").html('');
+
+	for(var idx in cartresult){
+		if(cartresult[idx]!=0){
+			if(temp_hasitems[idx]){
+				var tempitem = temp_hasitems[idx];
+				$("#hasitem_cnt_change_"+idx).html("<span style='color:blue;'> &#187; "+(tempitem.cnt+cartresult[idx])+"</span>");
+				if(tempitem.money!=0){
+					$("#hasitem_money_change_"+idx).html("<span style='color:blue;'> &#187; "+((tempitem.cnt+cartresult[idx])*tempitem.money).format()+"</span>");
+				}
+			}else{				
+				var hio = getItemFromMaster(idx);
+				var str ="<tr style='color:blue;'>";	
+				str += "<td title='"+hio.description+"'>"+hio.name+"</td>";
+				str += "<td>"+hio.type+"</td>";
+				str += "<td>"+cartresult[idx]+" ea";
+				if(hio.money!=0){
+					str+=" / &#8361 "+hio.money*cartresult[idx] + "" ;
+				}
+				str += "</td>";
+				str += "</tr>";
+				$("#employee_cartaddeditems_tbody").html($("#employee_cartaddeditems_tbody").html()+str);				
+			}
+		}
+	}
+	console.log(cartresult);
 }
+
 
 var deleteItemInCart = function(row) {
 	console.log("deleteItemInCart");
@@ -344,6 +385,7 @@ var applyAllTicketsToCart = function(){
 			}
 		}
 	}
+	onchange_item_count();
 }
 
 var setupSignedUser = function(user){
@@ -413,3 +455,27 @@ function getTimeColumnString(tm){
 	}
 	return str;
 }
+
+function getItemFromMaster(idx){
+	for( var i in master_item){
+		if(master_item[i].id == idx ){
+			return master_item[i];
+		}
+	}
+}
+Number.prototype.format = function(){
+	if(this==0) return 0;
+
+	var reg = /(^[+-]?\d+)(\d{3})/;
+	var n = (this + '');
+
+	while (reg.test(n)) n = n.replace(reg, '$1' + ',' + '$2');
+
+	return n;
+};
+String.prototype.format = function(){
+	var num = parseFloat(this);
+	if( isNaN(num) ) return "0";
+
+	return num.format();
+};

@@ -15,10 +15,10 @@
 		overflow-y:scroll;
 	}	
 	.vertical-align-middle { 
-	vertical-align:middle; 
+		vertical-align:middle; 
 	}
 
-</style>
+	</style>
 
 </head>
 <body style="overflow:hidden;bottom-padding:none;">
@@ -58,30 +58,34 @@
 
 	<!-- Main body Start --> 
 	<table style="border-collapse:separate;border-spacing:5px;position:absolute; height:100%; width:100%;">
-		<tr><td colspan=3 style="height:30px;text-align:right;">
-			<div style="text-align:left;display:inline-block;">
-				<ul class="nav nav-pills">
-
-					<li class="disabled" ><a href="#">Notifications</a></li>
-					<li class="active">
-						<a class="dropdown-toggle" data-toggle="dropdown" href="#">0</a>
-						<ul class="dropdown-menu dropdown-menu-right">
-							<li><a href="#" >test notification1 </a></li>
-							<li><a href="#" >test notification2 </a></li>
-						</ul>
-					</li>
-					<li class="disabled"><a href="#"> </a></li>
-					<li class="disabled" ><a href="#"><span id="span_loginusername"></span> logged in. </a></li>
-					<li class="active"><a href="#" onclick="signout();">Sign Out</a></li>
-				</ul>
-			</div>
-		</td></tr>
+		<tr>
+			<td colspan="3" height="30px;margin-top:0px;padding-top:0px;">
+				<div style="float:left;margin-top:0px;padding-top:0px;">
+					<h1 style="margin-top:1px;"> &nbsp;<span class='glyphicon glyphicon-send'></span> Ticket System </h1>
+				</div>
+				<div style="float:right;">
+					<ul class="nav nav-pills">
+						<li class="disabled" ><a href="#">Notifications</a></li>
+						<li class="active">
+							<a class="dropdown-toggle" data-toggle="dropdown" href="#">0</a>
+							<ul class="dropdown-menu dropdown-menu-right">
+								<li><a href="#" >test notification1 </a></li>
+								<li><a href="#" >test notification2 </a></li>
+							</ul>
+						</li>
+						<li class="disabled"><a href="#"> </a></li>
+						<li class="disabled" ><a href="#"><span id="span_loginusername"></span> logged in. </a></li>
+						<li class="active"><a href="#" onclick="signout();">Sign Out</a></li>
+					</ul>
+				</div>
+			</td>
+		</tr>
 		<tr>
 			<td style="vertical-align: top;width:33%;">
 				<div class="panel panel-primary" 
 				style="position:relative;height:100%;">
 				<div class="panel-heading">
-					직원 검색 
+					<span class="glyphicon glyphicon-search"></span> 직원 검색
 				</div>
 				<div class="panel-body forFixedHeight" style="overflow-y:auto; ">
 					<form class="form-inline" onsubmit="return searchEmployee();" action="#">
@@ -117,14 +121,14 @@
 		<td style="vertical-align: top;width:33%;">
 			<div class="panel panel-primary" style="position:relative;height:100%;">
 				<div class="panel-heading" >
-					티켓팅
+					<span class="glyphicon glyphicon-check"></span> 티켓팅
 				</div>
 				<div class="panel-body forFixedHeight" style="overflow-y:scroll;">
-					* 직원 정보 <br/>
+					<span class="glyphicon glyphicon-info-sign"></span> 직원 정보 <br/>
 					<table class="table table-condensed">
 						<tbody id="employee_info_tbody" ></tbody>
 					</table>
-					* 보유 티켓정보<br/>
+					<span class="glyphicon glyphicon-plus-sign"></span> 보유 티켓정보<br/>
 					<table class="table table-condensed">
 						<tr>
 							<td>Name</td>
@@ -132,48 +136,50 @@
 							<td>Count</td>
 						</tr>
 						<tbody id="employee_hasitems_tbody"></tbody>
+						<tbody id="employee_cartaddeditems_tbody"></tbody>
 						<tr>
 							<td colspan=3 align="right" id="employee_hasitems_status_td">
-								
+
 							</td>
 						</tr>
 					</table>
-					<div style="text-align:right">
+
+					<div style="text-align:right; margin-bottom:5px;">
 						<button class="btn btn-primary" onclick="applyAllTicketsToCart();" >모두적용</button>
 					</div>
-					* Cart 처리 박스 
+
 					<div class="panel panel-info">
 						<div class="panel-heading" >
-							티켓팅
+							<span class="glyphicon glyphicon-shopping-cart"></span> 티켓팅
 						</div>
-						<div class="panel-body">
-							<table class="table table-condensed">
-								<tr>
-									<td>&nbsp;</td>
-									<td>Item</td>
-									<td>Count</td>
-									<td>&nbsp;</td>
-									<td>Money</td>
-									
-								</tr>
-								<tbody id="item_in_cart_tbody"></tbody>
-								<tr>
-									<td colspan="2">
-										<button class="btn btn-primary" onclick="newItemIntoCart();">새 항목 추가</button>
-									</td>
-									<td colspan="2" align="right"> 
-										<span>0<span> Tickets  <span>0</span> 원 
-									</td>
-								</tr>
-								<tr>
-									<td colspan="4"><textarea class="form-control" id="cart_message" style="resize: none; wrap: hard;" rows=3 cols=64> </textarea></td>
-								</tr>
-								<tr>
-									<td colspan="4" align="right"><button class="btn btn-primary" onclick="createNewCart();">submit</button></td>
-								</tr>
-							</table>
-							<!--<input type="checkbox" /> change status to done.-->	
-						</div>
+
+						<table class="panel-body table table-condensed">
+							<tr>
+								<td>&nbsp;</td>
+								<td>Item</td>
+								<td>Count</td>
+
+								<td>Money</td>
+
+							</tr>
+							<tbody id="item_in_cart_tbody"></tbody>
+							<tr>
+								<td colspan="2">
+									<button class="btn btn-primary" onclick="newItemIntoCart();">새 항목 추가</button>
+								</td>
+								<td colspan="2" align="right"> 
+									<span>0<span> Tickets  <span>0</span> 원 
+								</td>
+							</tr>
+							<tr>
+								<td colspan="4" style='border-top:none;'><textarea class="form-control" id="cart_message" style="resize: none; wrap: hard;" rows=3 cols=64> </textarea></td>
+							</tr>
+							<tr>
+								<td colspan="4" align="right" style='border-top:none;'><button class="btn btn-primary" onclick="createNewCart();">submit</button></td>
+							</tr>
+						</table>
+						<!--<input type="checkbox" /> change status to done.-->	
+
 					</div>
 				</div>
 
@@ -182,7 +188,7 @@
 		<td style="vertical-align: top;width:33%;">
 			<div class="panel panel-primary" style="position:relative;height:100%;">
 				<div class="panel-heading">
-					티켓팅 히스토리
+					<span class="glyphicon glyphicon-list"></span> 티켓팅 히스토리
 				</div>
 				<div class="panel-body forFixedHeight" style="overflow-y:auto;" >
 					<div id="employee_carts_div"></div>
@@ -191,6 +197,7 @@
 			</div>
 		</td>
 	</tr>
+	<tr><td colspan="3" style="height:5px;margin:0px; padding:0px;"><h6>Developed by SungKyu Sim / YongJun Kim</h6></td></tr>
 </table>
 
 </body>
