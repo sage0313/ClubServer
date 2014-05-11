@@ -3,7 +3,7 @@
 
 var base = require('../base');
 
-var selectColumns = " select id, sn, name, phone, visitdate, ismarriage, applystatus, rcv_name, rcv_phone, part, status, msg  from employee " ;
+var selectColumns = " select id, sn, name, phone, visitdate, ismarriage, status, rcv_name, rcv_phone, part, msg  from employee " ;
 
 exports.insertEmployee = function(emp , conn, callback){
 	var sn = conn.escape(emp.sn);
