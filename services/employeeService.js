@@ -14,7 +14,7 @@ exports.getEmployee = function(req, res){
 				res.send({"status":"error","error":""+err});
 			}
 			if(rows){
-				if(rows.length==1){
+				if(rows.length===1){
 					var ret = rows[0];
 					itemDao.selectHasItemsByEmployee(ret.id, conn, function(err, rows){
 						ret.hasitems = rows;
@@ -27,13 +27,13 @@ exports.getEmployee = function(req, res){
 			}
 		});
 	});
-}
+};
 
 exports.searchEmployee = function(req,res){
 	base.execute(req,res, function(req, res, conn){
 		var query = req.query.query;
 		var type = req.query.type;
-		if(type=="byall"){
+		if(type==="byall"){
 			if(isNaN(query)){ // name
 				employeeDao.selectEmployeeBy(query, "byname", conn, function(err, rows){
 					console.log(rows);
@@ -76,7 +76,7 @@ exports.searchEmployee = function(req,res){
 					});
 				});	
 			}
-		}else if(type=="bysn" || type=="byname" || type=="byphone"){
+		}else if(type==="bysn" || type==="byname" || type==="byphone"){
 			employeeDao.selectEmployeeBy(query, type, conn, function(err, rows){
 				console.log(rows);
 				if(err){
@@ -92,7 +92,7 @@ exports.searchEmployee = function(req,res){
 		}
 	});	
 
-}
+};
 
 
 
@@ -105,8 +105,10 @@ exports.getCartsByEmployee = function(req,res){
 			var cartlist = new Object();
 			for(var i in rows){
 				var o = rows[i];
+
+				var cart = new Object();
+
 				if(!cartlist[o.cart_id]){
-					var cart = new Object();
 					cart.cart_id = o.cart_id;
 					cart.emp_id = o.emp_id;
 					cart.user_id = o.user_id;
@@ -115,10 +117,10 @@ exports.getCartsByEmployee = function(req,res){
 					cart.tmstmp = o.tmstmp;
 					cart.items = [];
 					cartlist[o.cart_id] = cart;
+				} else {
+					cart = cartlist[o.cart_id];
 				}
-				var cart = cartlist[o.cart_id];
 				var items = cart.items;
-
 				var item = new Object();
 				item.item_id = o.item_id;
 				item.item_name = o.item_name;
@@ -135,12 +137,12 @@ exports.getCartsByEmployee = function(req,res){
 		});
 
 	});
-}
+};
 
 
 exports.createEmployee = function(empobj){
 	// base.
-}
+};
 
 
 

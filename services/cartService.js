@@ -46,7 +46,7 @@ exports.getTicketInfofromCarts = function(req, res) {
 		});
 
 	});
-}
+};
 
 
 exports.createCart = function(req, res){
@@ -77,5 +77,5 @@ exports.createCart = function(req, res){
 			}
 		});
 	});
-}
+};
 

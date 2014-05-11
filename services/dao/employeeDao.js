@@ -18,7 +18,7 @@ exports.insertEmployee = function(emp , conn, callback){
 	conn.query(query,function(err, rows, fields) {
 		callback(err,rows);
 	});
-}
+};
 
 
 exports.selectEmployeeById = function(idarg, conn, callback){
@@ -29,18 +29,18 @@ exports.selectEmployeeById = function(idarg, conn, callback){
 	conn.query(query,function(err, rows, fields) {
 		callback(err,rows);
 	});	
-}
+};
 
 exports.selectEmployeeBy = function(querystringarg, type, conn, callback){
 	var querystring = conn.escape('%'+querystringarg+'%');
 	var query =" "+ selectColumns;
-	if(type=="bysn"){
+	if(type==="bysn"){
 		query +=" where sn like " + querystring ;
-	}else if (type=="byname"){
+	}else if (type==="byname"){
 		query +=" where name like "+ querystring ;
 		query +=" union " + selectColumns;
 		query +=" where rcv_name like "+ querystring ;
-	}else if(type=="byphone"){
+	}else if(type==="byphone"){
 		query +=" where phone like "+ querystring ;
 		query +=" union " + selectColumns;
 		query +=" where rcv_phone like "+ querystring ;
@@ -49,4 +49,4 @@ exports.selectEmployeeBy = function(querystringarg, type, conn, callback){
 	conn.query(query,function(err, rows, fields) {
 		callback(err,rows);
 	});			
-}
+};

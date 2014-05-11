@@ -4,24 +4,24 @@
  * Module dependencies.
  */
 
- 'use strict';
+'use strict';
 
- var express = require('express');
- var routes = require('./routes');
- var user = require('./routes/user');
- var http = require('http');
- var path = require('path');
- var mysql = require('mysql');
+var express = require('express');
+var routes = require('./routes');
+var user = require('./routes/user');
+var http = require('http');
+var path = require('path');
+var mysql = require('mysql');
 
- // Services
- var userService = require('./services/userService');
- var adminService = require('./services/adminService');
- var employeeService = require('./services/employeeService');
- var itemService = require('./services/itemService');
- var cartService = require('./services/cartService');
- var notificationService = require('./services/notificationService');
+// Services
+var userService = require('./services/userService');
+var adminService = require('./services/adminService');
+var employeeService = require('./services/employeeService');
+var itemService = require('./services/itemService');
+var cartService = require('./services/cartService');
+var notificationService = require('./services/notificationService');
  
- var app = express();
+var app = express();
 
 
 // all environments
@@ -58,7 +58,7 @@ app.get('/', function(req,res){
 });
 
 app.get('/admin', function(req,res){
-	console.log
+
 	if(userService.isAdmin(req,res)){
 		res.sendfile(__dirname+'/public/admin.html');
 	}else{
@@ -69,48 +69,48 @@ app.get('/admin', function(req,res){
 /********************
  * user
  ********************/
- app.post('/user/signin', function(req, res) {
- 	userService.signin(req, res);
- });
+app.post('/user/signin', function(req, res) {
+	userService.signin(req, res);
+});
 
- app.get('/user/signout', function(req, res) {
- 	userService.signout(req, res);
- });
+app.get('/user/signout', function(req, res) {
+	userService.signout(req, res);
+});
 
- app.post('/user/signup', function(req, res) {
- 	userService.signup(req, res);
- });
+app.post('/user/signup', function(req, res) {
+	userService.signup(req, res);
+});
 
- app.get('/user/signinuser', function(req, res){
- 	userService.getSigninUser(req,res);
- });
+app.get('/user/signinuser', function(req, res){
+	userService.getSigninUser(req,res);
+});
 
- app.get('/user/:uid', function(req, res) {
- 	userService.getUser(req, res);
- });
+app.get('/user/:uid', function(req, res) {
+	userService.getUser(req, res);
+});
 
- app.get('/user/:uid/cart', function(req, res) {
- 	userService.getUserCart(req, res);
- });
+app.get('/user/:uid/cart', function(req, res) {
+	userService.getUserCart(req, res);
+});
 
- // app.put('/user/:uid', function(req, res) {
- // 	userService.updateUser(req, res);
- // });
+// app.put('/user/:uid', function(req, res) {
+// userService.updateUser(req, res);
+// });
 
- // app.delete('/user/:uid', function(req, res) {
- // 	commonService.deleteUser(req, res);
- // });
+// app.delete('/user/:uid', function(req, res) {
+//	commonService.deleteUser(req, res);
+// });
 
 
 /********************
  * employee
  ********************/
- app.get('/employee/:uid', function(req,res){
- 	employeeService.getEmployee(req,res);
- });
+app.get('/employee/:uid', function(req,res){
+	employeeService.getEmployee(req,res);
+});
 
- app.get('/employee', function(req,res){
- 	employeeService.searchEmployee(req,res);
+app.get('/employee', function(req,res){
+	employeeService.searchEmployee(req,res);
 });
 
 app.get('/employee/:eid/carts', function(req,res){
@@ -123,12 +123,12 @@ app.get('/employee/:eid/carts', function(req,res){
  * item
  ********************/
 app.get('/item', function(req,res){
- 	itemService.getItems(req,res);
+	itemService.getItems(req,res);
 	// TODO dev 
 });
 
 app.get('/item/:uid', function(req,res){
- 	itemService.getItem(req,res);
+	itemService.getItem(req,res);
 	// TODO dev 
 });
 
@@ -147,12 +147,13 @@ app.post('/cart', function(req,res){
 /********************
  * notification
  ********************/
- app.get('/notification/:nid',function(req,res){
- 	notificationService.getNotification(req,res);
+app.get('/notification/:nid',function(req,res){
+	notificationService.getNotification(req,res);
 	// TODO dev
 });
- app.get('/notification', function(req,res){
- 	notificationService.getNotificationsByLoginUser(req,res);
+
+app.get('/notification', function(req,res){
+	notificationService.getNotificationsByLoginUser(req,res);
 	// TODO dev
 });
 

@@ -17,7 +17,7 @@ exports.signin = function(req,res){
 			if(err){					
 				res.send({"status":"error","error":""+err});
 			}
-			if(rows.length==1){
+			if(rows.length===1){
 				req.session.loginUser = rows[0];
 				res.send({"status":"success"});
 			}else{
@@ -30,14 +30,14 @@ exports.signin = function(req,res){
 exports.signout = function(req,res){
 	req.session.loginUser = null; 
 	res.send({"status":"success"});
-}
+};
 
 exports.signup = function(req,res){
 	base.execute(req,res, function(req, res, conn){
-		var user = { userid: req.body.userid
-			, username:req.body.username
-			, userpwd:req.body.userpwd
-		};
+		var user = {userid: req.body.userid, 
+					username:req.body.username, 
+					userpwd:req.body.userpwd};
+
 		console.log(user);
 		userDao.insertUser(user, conn, function(err, rows) {
 			console.log(rows);
@@ -68,13 +68,13 @@ exports.getUser = function(req, res){
 			}
 		});
 	});
-}
+};
 
 exports.isAdmin = function(req, res){
 	if(req.session.loginUser!=null){
-		if(req.session.loginUser.role=="admin"){
+		if(req.session.loginUser.role==="admin"){
 			return true; 
 		}
 	}
 	return false;
-}
+};
