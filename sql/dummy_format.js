@@ -23,7 +23,19 @@ var newEmployeeWithCartAndItems = [{
 		},
 		{
 			"item_id": 3, 
-			"spend_count": 1		
+			"spend_count": 3	
+		},
+		{
+			"item_id": 4, 
+			"spend_count": 2	
+		},
+		{
+			"item_id": 5, 
+			"spend_count": 1	
+		},
+		{
+			"item_id": 6, 
+			"spend_count": 1	
 		}]
 	}
 },{
@@ -50,7 +62,19 @@ var newEmployeeWithCartAndItems = [{
 		},
 		{
 			"item_id": 3, 
-			"spend_count": 1		
+			"spend_count": 6	
+		},
+		{
+			"item_id": 4, 
+			"spend_count": 4	
+		},
+		{
+			"item_id": 5, 
+			"spend_count": 2
+		},
+		{
+			"item_id": 6, 
+			"spend_count": 1	
 		}]
 	}
 }]
