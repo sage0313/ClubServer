@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Admin Page :: TicketSystem</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+	<!-- Bootstrap -->
+	<link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+
+</head>
+
+<body>
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script src="./js/jquery.min.js"></script>
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script src="../bootstrap/js/bootstrap.min.js"></script>
+	<script src="./js/ticketsystem.js"></script>
+	<script src="./js/admin.js"></script>
+
+	<!-- Main body Start --> 
+	<table style="border-collapse:separate;border-spacing:5px;position:absolute; height:100%; width:100%;">
+		<tr>
+			<td colspan="3" height="30px;margin-top:0px;padding-top:0px;">
+				<div style="float:left;margin-top:0px;padding-top:0px;">
+					<h1 style="margin-top:1px;"> &nbsp;<span class='glyphicon glyphicon-send'></span> Ticket System </h1>
+				</div>
+				<div style="float:right;">
+					<ul class="nav nav-pills">
+						<li class="disabled" ><a href="#">Notifications</a></li>
+						<li class="active">
+							<a class="dropdown-toggle" data-toggle="dropdown" href="#">0</a>
+							<ul class="dropdown-menu dropdown-menu-right">
+								<li><a href="#" >test notification1 </a></li>
+								<li><a href="#" >test notification2 </a></li>
+							</ul>
+						</li>
+						<li class="disabled"><a href="#"> </a></li>
+						<li class="disabled" ><a href="#"><span id="span_loginusername"></span> logged in. </a></li>
+						<li class="active"><a href="#" onclick="signout();">Sign Out</a></li>
+					</ul>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="3">
+				<select>
+					<option>-- 조회 메소드 선택</option>
+					<option>시간 간격별 Item 수량조사</option>
+				</select>
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<span class="glyphicon glyphicon-search"></span> 조회 결과
+					</div>
+					<table class="panel-body"></table>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="3">
+				<div class="panel panel-primary" style="position:relative;height:100%;">
+					<div class="panel-heading">
+						<span class="glyphicon glyphicon-search"></span> 조회 결과
+					</div>
+					<table class="panel-body"></table>
+				</div>
+			</td>
+		</tr>
+	</table>
+</body>
+</html

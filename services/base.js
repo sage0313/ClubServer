@@ -13,9 +13,18 @@ var dbpool = mysql.createPool({
 });
 
 
-exports.execute = function(req, res, callback){
-	dbpool.getConnection(function(err,connection){
-		callback(req,res,connection);
-		connection.release();
-	});
+exports.execute = function(req, res, callback){	
+	if(typeof callback =="undefined"){
+		callback = res;
+		dbpool.getConnection(function(err,connection){
+			callback(req,connection);
+			connection.release();
+		});
+	}else{
+		dbpool.getConnection(function(err,connection){
+			callback(req,res,connection);
+			connection.release();
+		});
+	}
 }
+

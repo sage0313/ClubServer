@@ -138,6 +138,10 @@ exports.getCartsByEmployee = function(req,res){
 }
 
 
+exports.createEmployee = function(empobj){
+	// base.
+}
+
 
 
 

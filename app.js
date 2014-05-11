@@ -15,6 +15,7 @@
 
  // Services
  var userService = require('./services/userService');
+ var adminService = require('./services/adminService');
  var employeeService = require('./services/employeeService');
  var itemService = require('./services/itemService');
  var cartService = require('./services/cartService');
@@ -53,6 +54,15 @@ app.get('/', function(req,res){
 		res.sendfile(__dirname+'/public/login.html');
 	}else{
 		res.sendfile(__dirname+'/public/index.html');		
+	}
+});
+
+app.get('/admin', function(req,res){
+	console.log
+	if(userService.isAdmin(req,res)){
+		res.sendfile(__dirname+'/public/admin.html');
+	}else{
+		res.send("You are not authrized. ");
 	}
 });
 

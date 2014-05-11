@@ -86,6 +86,7 @@
 				style="position:relative;height:100%;">
 				<div class="panel-heading">
 					<span class="glyphicon glyphicon-search"></span> 직원 검색
+					<kbd>새창(F2)</kbd>
 				</div>
 				<div class="panel-body forFixedHeight" style="overflow-y:auto; ">
 					<form class="form-inline" onsubmit="return searchEmployee();" action="#">
@@ -168,7 +169,7 @@
 									<button class="btn btn-primary" onclick="newItemIntoCart();">새 항목 추가</button>
 								</td>
 								<td colspan="2" align="right"> 
-									<span>0<span> Tickets  <span>0</span> 원 
+									<span id="cart_sum_msg">0 Tickets  0 원 </span>
 								</td>
 							</tr>
 							<tr>

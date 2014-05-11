@@ -6,10 +6,10 @@ insert into item(id, name, description, type, money) values(3, '식음료권', '
 insert into item(id, name, description, type, money) values(4, '세미뷔페', '서문 행사장 세미뷔피 쿠폰 : 사람당 1매' , 'ticket', 0);
 insert into item(id, name, description, type, money) values(5, '어린이선물', '어린이 선물 쿠폰 : 소인 당 1매' , 'ticket', 0);
 insert into item(id, name, description, type, money) values(6, '직원선물', '직원선물 쿠폰 : 정규직원 당 1매' , 'ticket', 0);
-insert into item(id, name, description, type, money) values(7, '현금 대인 티켓', '(현금구매) 대인 자유이욕권','cash', 19000);
-insert into item(id, name, description, type, money) values(8, '현금 소인 티켓', '(현금구매) 소인 자유이용권','cash', 13000);
-insert into item(id, name, description, type, money) values(9, '추가 대인 티켓', '(추가구매:구매최대수량초과시) 대인 자유이욕권','cash', 28000);
-insert into item(id, name, description, type, money) values(10, '추가 소인 티켓', '(추가구매:구매최대수량초과시) 소인 자유이용권','cash', 12000);
+insert into item(id, name, description, type, money) values(7, '현금 대인 티켓', '(현금구매) 대인 자유이욕권','cash', -19000);
+insert into item(id, name, description, type, money) values(8, '현금 소인 티켓', '(현금구매) 소인 자유이용권','cash', -13000);
+insert into item(id, name, description, type, money) values(9, '추가 대인 티켓', '(추가구매:구매최대수량초과시) 대인 자유이욕권','cash', -28000);
+insert into item(id, name, description, type, money) values(10, '추가 소인 티켓', '(추가구매:구매최대수량초과시) 소인 자유이용권','cash', -12000);
 insert into item(id, name, description, type, money) values(11, '기타 금액', '기타 금액 사용 1매당 1원 카운트','cash', 1);
 
 

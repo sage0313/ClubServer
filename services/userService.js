@@ -69,3 +69,12 @@ exports.getUser = function(req, res){
 		});
 	});
 }
+
+exports.isAdmin = function(req, res){
+	if(req.session.loginUser!=null){
+		if(req.session.loginUser.role=="admin"){
+			return true; 
+		}
+	}
+	return false;
+}

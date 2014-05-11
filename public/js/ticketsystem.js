@@ -116,6 +116,7 @@ var searchEmployee = function(type,query){
 var selectEmployee = function(eid){
 	console.log("selectEmployee "+eid);
 	$("#employee_cartaddeditems_tbody").html('');
+	$("#cart_sum_msg").html("0 Tickets  0 원");
 	curr_eid = eid;
 	// employee info 
 	$.ajax({
@@ -314,7 +315,14 @@ var newItemIntoCart = function(item_id, cnt){
 
 var onchange_item_count = function(){
 	console.log("onchange_item_count");
+	$(".hasitem_cnt_change").each(function(idx,obj){$(obj).html('');});
+	$(".hasitem_money_change").each(function(idx,obj){$(obj).html('');});
+	$("#employee_cartaddeditems_tbody").html('');
+
+
 	var cartresult = {};
+	var cartcountresult = 0;
+	var cartmoneyresult =0;
 	$(".itemincart_tr").each(function(idx, obj){
 		var cntid = $(obj).attr("value");
 		var typeid = $("#item_type_"+cntid+" option:selected").attr("value");
@@ -322,8 +330,11 @@ var onchange_item_count = function(){
 		if(isNaN(itemcnt)) itemcnt=0;
 		var item = getItemFromMaster(typeid);
 		if(item.money!=0){
-			// TODO money change
+			$("#item_money_"+cntid).html((item.money*itemcnt).format());
+			cartmoneyresult += item.money*itemcnt;
 		}
+		cartcountresult+= itemcnt;
+		
 		console.log("cntid", cntid,"typeid", typeid,"itemcnt",itemcnt);
 		if(!cartresult[typeid]){
 			cartresult[typeid] = 0;
@@ -331,15 +342,13 @@ var onchange_item_count = function(){
 		cartresult[typeid] += itemcnt;
 	});
 
+	$("#cart_sum_msg").html(""+cartcountresult+" Tickets & "+cartmoneyresult+" 원");
 
 	var temp_hasitems = {};
 	for(var idx in selectedEmployee.hasitems){
 		temp_hasitems[selectedEmployee.hasitems[idx].id] = selectedEmployee.hasitems[idx];
 	}
 
-	$(".hasitem_cnt_change").each(function(idx,obj){$(obj).html('');});
-	$(".hasitem_money_change").each(function(idx,obj){$(obj).html('');});
-	$("#employee_cartaddeditems_tbody").html('');
 
 	for(var idx in cartresult){
 		if(cartresult[idx]!=0){
