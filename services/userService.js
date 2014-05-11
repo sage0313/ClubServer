@@ -5,7 +5,7 @@ var base = require('./base');
 var userDao = require('./dao/userDao');
 
 
-exports.signin = function(req,res){
+exports.signin = function(req, res){
 	base.execute(req,res, function(req, res, conn){
 		var userid = req.body.userid;
 		var userpwd = req.body.userpwd;
@@ -27,12 +27,12 @@ exports.signin = function(req,res){
 	});
 };
 
-exports.signout = function(req,res){
+exports.signout = function(req, res){
 	req.session.loginUser = null; 
 	res.send({"status":"success"});
 };
 
-exports.signup = function(req,res){
+exports.signup = function(req, res){
 	base.execute(req,res, function(req, res, conn){
 		var user = {userid: req.body.userid, 
 					username:req.body.username, 

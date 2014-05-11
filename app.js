@@ -20,6 +20,7 @@ var employeeService = require('./services/employeeService');
 var itemService = require('./services/itemService');
 var cartService = require('./services/cartService');
 var notificationService = require('./services/notificationService');
+var initDBDataService = require('./services/initDBDataService');
  
 var app = express();
 
@@ -159,7 +160,12 @@ app.get('/notification', function(req,res){
 
 
 
-
+/*******************
+ * inital db data
+********************/
+app.post('/initDB', function(req, res) {
+	initDBDataService.initDBData(req, res);
+});
 
 
 // clean up 
