@@ -1,6 +1,5 @@
 
 /* ticketdb_dml.sql */
-<<<<<<< HEAD
 insert into item(id, name, description, type, money) values(1, '대인 티켓', '대인 자유이용권(+식음료권 2매, 세미뷔페 1매)' , 'ticket', 0);
 insert into item(id, name, description, type, money) values(2, '소인 티켓', '소인 자유이용권(+식음료권 1매, 세미뷔페 1매, 어린이 선물 1매)','ticket', 0);
 insert into item(id, name, description, type, money) values(3, '식음료권', '식음료권 5000원 : 선구매 하신분들에게 대안2매, 소인 1매','ticket', 0);
@@ -12,17 +11,6 @@ insert into item(id, name, description, type, money) values(8, '현금 소인 �
 insert into item(id, name, description, type, money) values(9, '추가 대인 티켓', '(추가구매:구매최대수량초과시) 대인 자유이욕권','cash', 28000);
 insert into item(id, name, description, type, money) values(10, '추가 소인 티켓', '(추가구매:구매최대수량초과시) 소인 자유이용권','cash', 12000);
 insert into item(id, name, description, type, money) values(11, '기타 금액', '기타 금액 사용 1매당 1원 카운트','cash', 1);
-
-=======
-insert into item(name, description, type, money) values('Adult Ticket', 'Adult Everland Ticket','ticket', 0);
-insert into item(name, description, type, money) values('Child Ticket', 'Child Everland Ticket','ticket', 0);
-insert into item(name, description, type, money) values('Employee Gift', 'Employee Gift Ticket' , 'ticket', 0);
-insert into item(name, description, type, money) values('Children Gift', 'Children Gift Ticket' , 'ticket', 0);
-insert into item(name, description, type, money) values('Food and Beverage', 'Food and Beverage Ticket' , 'ticket', 0);
-insert into item(name, description, type, money) values('Snack', 'Snack Ticket' , 'ticket', 0);
-insert into item(name, description, type, money) values('Adult Cash Ticket', 'Adult Everland Cash Ticket','cash', 20000);
-insert into item(name, description, type, money) values('Child Cash Ticket', 'Child Everland Cash Ticket','cash', 18000);
->>>>>>> 4e407a071e22e6f36d1d3ec9df283a12b58f1921
 
 
 insert into user(userid, username, userpwd, role) values('admin', 'Administrator', password('passw0rd'), 'admin');
