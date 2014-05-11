@@ -3,6 +3,8 @@
 
 var base = require('../base');
 
+var selectColumns = " select id, sn, name, phone, visitdate, ismarriage, applystatus, rcv_name, rcv_phone, part, status, msg  from employee " ;
+
 exports.insertEmployee = function(emp , conn, callback){
 	var sn = conn.escape(emp.sn);
 	var name= conn.escape(emp.name);
@@ -21,7 +23,7 @@ exports.insertEmployee = function(emp , conn, callback){
 
 exports.selectEmployeeById = function(idarg, conn, callback){
 	var id = conn.escape(idarg);
-	var query = " select id, sn, name, phone, part, status from employee " ;
+	var query = " "+ selectColumns;
 	query +=" where id = "+ id ;
 	console.log("query="+query);
 	conn.query(query,function(err, rows, fields) {
@@ -31,13 +33,17 @@ exports.selectEmployeeById = function(idarg, conn, callback){
 
 exports.selectEmployeeBy = function(querystringarg, type, conn, callback){
 	var querystring = conn.escape('%'+querystringarg+'%');
-	var query = " select id, sn, name, phone, part, status from employee " ;
+	var query =" "+ selectColumns;
 	if(type=="bysn"){
 		query +=" where sn like " + querystring ;
 	}else if (type=="byname"){
 		query +=" where name like "+ querystring ;
+		query +=" union " + selectColumns;
+		query +=" where rcv_name like "+ querystring ;
 	}else if(type=="byphone"){
 		query +=" where phone like "+ querystring ;
+		query +=" union " + selectColumns;
+		query +=" where rcv_phone like "+ querystring ;
 	}
 	console.log("query="+query);
 	conn.query(query,function(err, rows, fields) {

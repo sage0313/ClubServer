@@ -14,8 +14,9 @@
 		width:100%;
 		overflow-y:scroll;
 	}	
-
-}
+	.vertical-align-middle { 
+	vertical-align:middle; 
+	}
 
 </style>
 
@@ -94,15 +95,20 @@
 						<button class="btn btn-primary btn-sm" type="submit">검색</button>
 					</form>
 					<br/>
-					<table class="table table-condensed">
-						<tr>
-							<td>SN</td>
-							<td>Name</td>
-							<td>Phone</td>
-							<td>Part</td>
-						</tr>
-						<tbody id="search_result_tbody">
+					<table class="table table-condensed table-hover ">
+						<thead>
+							<tr>
+								<td>SN</td>
+								<td>Name</td>
+								<td>Phone</td>
+								<td>Part</td>
+							</tr>
+						</thead>
+						<tbody class="" id="search_result_tbody">
 						</tbody>
+						<tfoot>
+							<tr><td colspan=4 ></td></tr>
+						</tfoot>
 					</table>					
 				</div>
 
@@ -124,13 +130,16 @@
 							<td>Name</td>
 							<td>Type</td>
 							<td>Count</td>
-							<td>Money</td>
 						</tr>
 						<tbody id="employee_hasitems_tbody"></tbody>
-
+						<tr>
+							<td colspan=3 align="right" id="employee_hasitems_status_td">
+								
+							</td>
+						</tr>
 					</table>
 					<div style="text-align:right">
-						<button class="btn btn-primary">모두적용</button>
+						<button class="btn btn-primary" onclick="applyAllTicketsToCart();" >모두적용</button>
 					</div>
 					* Cart 처리 박스 
 					<div class="panel panel-info">
@@ -140,20 +149,30 @@
 						<div class="panel-body">
 							<table class="table table-condensed">
 								<tr>
+									<td>&nbsp;</td>
 									<td>Item</td>
 									<td>Count</td>
+									<td>&nbsp;</td>
 									<td>Money</td>
-									<td>Delete</td>
+									
 								</tr>
 								<tbody id="item_in_cart_tbody"></tbody>
 								<tr>
-									<td colspan="4"> money : </td>
+									<td colspan="2">
+										<button class="btn btn-primary" onclick="newItemIntoCart();">새 항목 추가</button>
+									</td>
+									<td colspan="2" align="right"> 
+										<span>0<span> Tickets  <span>0</span> 원 
+									</td>
+								</tr>
+								<tr>
+									<td colspan="4"><textarea class="form-control" id="cart_message" style="resize: none; wrap: hard;" rows=3 cols=64> </textarea></td>
+								</tr>
+								<tr>
+									<td colspan="4" align="right"><button class="btn btn-primary" onclick="createNewCart();">submit</button></td>
 								</tr>
 							</table>
-							<button class="btn btn-primary" onclick="newItemIntoCart();">새 항목 추가</button><br/>
-							<input type="checkbox" /> change status to done.
-							<textarea class="form-control" id="cart_message" style="resize: none; wrap: hard;" rows=3 cols=64> </textarea>
-							<button class="btn btn-primary" onclick="createNewCart();">submit</button>
+							<!--<input type="checkbox" /> change status to done.-->	
 						</div>
 					</div>
 				</div>
@@ -166,7 +185,7 @@
 					티켓팅 히스토리
 				</div>
 				<div class="panel-body forFixedHeight" style="overflow-y:auto;" >
-<div id="employee_carts_div"></div>
+					<div id="employee_carts_div"></div>
 				</div>
 
 			</div>

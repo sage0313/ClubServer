@@ -110,6 +110,7 @@ exports.getCartsByEmployee = function(req,res){
 					cart.cart_id = o.cart_id;
 					cart.emp_id = o.emp_id;
 					cart.user_id = o.user_id;
+					cart.user_name = o.user_name;
 					cart.msg = o.msg;
 					cart.tmstmp = o.tmstmp;
 					cart.items = [];

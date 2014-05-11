@@ -22,15 +22,20 @@ CREATE TABLE `employee` (
 	`id`     bigint(20) AUTO_INCREMENT NOT NULL,
 	`sn` varchar(6) NOT NULL,
 	`name`	varchar(50) NOT NULL,
-	`phone`	varchar(13) NOT NULL,
+	`phone` varchar(13) NOT NULL,
+	`visitdate` varchar(10) NOT NULL, 
+	`ismarriage` varchar(10) NOT NULL,
+	`status` varchar(50) NOT NULL, 
+	`rcv_name` varchar(50) NOT NULL, 
+	`rcv_phone`	varchar(13) NOT NULL,
 	`part`	varchar(50) NOT NULL,
-	`status` varchar(50) NOT NULL,
+	`msg` varchar(1024) NOT NULL,
 	PRIMARY KEY(`id`)
 	, UNIQUE (`sn`)
 );
 
 CREATE TABLE `item` ( 
-	`id`     bigint(20) AUTO_INCREMENT NOT NULL,
+	`id`     bigint(20) NOT NULL,
 	`name` varchar(100) NOT NULL,
 	`description`	varchar(500) NOT NULL,
 	`type`	varchar(20) NOT NULL,
@@ -42,7 +47,7 @@ CREATE TABLE `cart` (
 	`id`       bigint(20) AUTO_INCREMENT NOT NULL,
 	`emp_id`    	bigint(20) NOT NULL,
 	`user_id`   bigint(20) NOT NULL,
-	`msg`      	varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
+	`msg`      	varchar(1024) CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
 	`timestamp`	timestamp NULL ,
 	PRIMARY KEY(`id`)
 );
