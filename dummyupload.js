@@ -40,18 +40,8 @@
 
 
 
- var foo = function(a,b){
- 	if(typeof b =="undefined"){
- 		console.log("foo a "+ a);
-
- 	}else{
- 		console.log("foo a b "+ a+ b );	
- 	}
-
- }
 
 
- foo(1);
 
 // clean up 
 var cleanup = function() {
