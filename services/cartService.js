@@ -21,10 +21,10 @@ exports.getTicketInfofromCarts = function(req, res) {
 				var ticketlist = [];
 				for (var i in rows) {
 					var o = rows[i];
-					console.log('ticket info: ' + o);
+					// console.log('ticket info: ' + o);
 
 					for (var prop in o) {
-						console.log('prop: ' + prop);
+						// console.log('prop: ' + prop);
 					}
 
 					var ticket = {};
@@ -32,9 +32,9 @@ exports.getTicketInfofromCarts = function(req, res) {
 					ticket.type = o.type;
 					ticket.count = o['sum(ic.spend_count)'];
 
-					console.log('o.name: ' + o.name);
-					console.log('o.type: ' + o.type);
-					console.log('o.sumcount: ' + o['sum(ic.spend_count)']);
+					// console.log('o.name: ' + o.name);
+					// console.log('o.type: ' + o.type);
+					// console.log('o.sumcount: ' + o['sum(ic.spend_count)']);
 
 
 					ticketlist.push(ticket);
@@ -52,11 +52,11 @@ exports.getTicketInfofromCarts = function(req, res) {
 exports.createCart = function(req, res){
 	base.execute(req, res, function(req, res, conn){
 
-		console.log('createCart');
-		console.log('args ' + JSON.stringify(req.body));
+		// console.log('createCart');
+		// console.log('args ' + JSON.stringify(req.body));
 
 		cartDao.insertCart(req.body, conn, function(err, rows){
-			console.log('createcart rows:' + rows);
+			// console.log('createcart rows:' + rows);
 			if(err){
 				res.send({"status":"error","error":""+err});
 			} else {
@@ -64,7 +64,7 @@ exports.createCart = function(req, res){
 				var item_in_cart = req.body.item_in_cart;
 
 				for (var index in item_in_cart) {
-					console.log('item_info: ' + item_in_cart[index]);
+					// console.log('item_info: ' + item_in_cart[index]);
 					var query_info = item_in_cart[index];
 					query_info['cart_id'] = cart_id;
 					cartDao.insertItemInCart(query_info, conn, function(err, rows) {

@@ -14,8 +14,8 @@ exports.insertCart = function(cartarg, conn, callback) {
 	console.log("query="+query);
 
 	conn.query(query,function(err, rows) {
-		console.log('query result err:' + err);
-		console.log('query result rows:' + JSON.stringify(rows));
+		// console.log('query result err:' + err);
+		// console.log('query result rows:' + JSON.stringify(rows));
 		callback(err,rows);
 	});
 };
@@ -30,8 +30,8 @@ exports.insertItemInCart = function(itemargs, conn, callback) {
 	console.log("query="+query);
 
 	conn.query(query,function(err, rows) {
-		console.log('query result err:' + err);
-		console.log('query result rows:' + JSON.stringify(rows));
+		// console.log('query result err:' + err);
+		// console.log('query result rows:' + JSON.stringify(rows));
 		callback(err,rows);
 	});	
 };

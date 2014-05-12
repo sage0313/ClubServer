@@ -10,11 +10,12 @@
  var fs = require('fs');
 
  // Services
- var userService = require('./services/userService');
- var employeeService = require('./services/employeeService');
- var itemService = require('./services/itemService');
- var cartService = require('./services/cartService');
- var notificationService = require('./services/notificationService');
+ var userService = require('../services/userService');
+ var employeeService = require('../services/employeeService');
+ var itemService = require('../services/itemService');
+ var cartService = require('../services/cartService');
+ var notificationService = require('../services/notificationService');
+ var initDBDataService = require('../services/initDBDataService');
  
  process.argv.forEach(function (val, index, array) {
  	console.log(index + ': ' + val);
@@ -29,7 +30,13 @@
  			data = JSON.parse(data);
 
  			// console.dir(data);
- 			console.log(data.name);
+ 			console.log(data);
+ 			for(var idx in data){
+ 				var empinfo = data[idx];
+ 				initDBDataService.createEmployee(empinfo);	
+ 			}
+
+
 
  		}); 		
  	}
