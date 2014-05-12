@@ -16,7 +16,7 @@ exports.getItems = function(req, res){
 			}
 		});
 	});
-}
+};
 
 
 exports.getItem = function(req, res){
@@ -31,4 +31,4 @@ exports.getItem = function(req, res){
 			}
 		});
 	});
-}
+};

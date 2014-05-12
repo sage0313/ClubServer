@@ -31,4 +31,4 @@ exports.selectHasItemsByEmployee = function(eidarg, conn, callback){
 	conn.query(query,function(err, rows, fields) {
 		callback(err,rows);
 	});
-}
+};

@@ -40,9 +40,6 @@
 
 
 
-
-
-
 // clean up 
 var cleanup = function() {
 	console.log('cleanup');

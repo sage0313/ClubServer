@@ -5,26 +5,27 @@ var mysql = require('mysql');
 var dbpool = mysql.createPool({
 	host: 'localhost',
 	port:3306,
-	user:'ticketuser',
-	password:'passw0rd',
+	user:'root',
+	password:'root',
 	database:'ticketdb',
 	connectionLimit:20,
 	waitForConnections:false
 });
 
 
+
 exports.execute = function(req, res, callback){	
-	if(typeof callback =="undefined"){
+	if(typeof callback === "undefined"){
 		callback = res;
 		dbpool.getConnection(function(err,connection){
-			callback(req,connection);
+			callback(req, connection);
 			connection.release();
 		});
-	}else{
+	} else {
 		dbpool.getConnection(function(err,connection){
-			callback(req,res,connection);
+			callback(req, res, connection);
 			connection.release();
 		});
 	}
-}
 
+};
