@@ -167,6 +167,14 @@ app.post('/initDB', function(req, res) {
 	initDBDataService.initDBData(req, res);
 });
 
+/*******************
+ * admin
+********************/
+app.post('/admin/query', function(req, res) {
+	adminService.adminQuery(req, res);
+});
+
+
 
 // clean up 
 var cleanup = function() {

@@ -21,7 +21,7 @@ var onchange_search_type = function(){
 	var search_type = $("#search_type_select option:selected").val();
 	console.log(search_type);
 	if(parseInt(search_type)==1){
-		var str = "<form class='form-inline' > aaaaaaaaaaaaaa<br/>bbbbbbbbbbb</form>";
+		var str = "<form class='form-inline' ><input class='form-control' /></form>";
 		$("#search_method_div").html(str);
 	}else{
 

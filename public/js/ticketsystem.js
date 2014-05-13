@@ -30,17 +30,14 @@ window.onload = function(){
 	resizeLayout();
 	$(document.body).keyup(function(e){
 		if(e.keyCode==113){
-			$("#newEmployeeSearchModal").modal({show:true, keyboard:true});
-			console.log("F2 - new Search Employee");
-			$('#newEmployeeSearchModal').on('shown.bs.modal', function () {
-				$('#newEmployeeSearchModalInput').focus();
-			})
+			showNewEmployeeModal();
 		}
 	});
 	var querymap = parseQueryString(location.href);
 	if(typeof querymap["query"]!= 'undefined'){
 		console.log("new query");
-		searchEmployee(querymap["type"], querymap["query"])
+		searchEmployee(querymap["type"], querymap["query"]);
+		window.history.pushState("string", "Title", "/");
 	}
 
 	// signed in user load
@@ -58,6 +55,14 @@ window.onload = function(){
 		}
 	});
 };
+
+var showNewEmployeeModal = function(){
+	$("#newEmployeeSearchModal").modal({show:true, keyboard:true});
+			console.log("F2 - new Search Employee");
+			$('#newEmployeeSearchModal').on('shown.bs.modal', function () {
+				$('#newEmployeeSearchModalInput').focus();
+			});
+}
 
 var resizeLayout = function(){
 	var forFixedHeights = $(".forFixedHeight");
@@ -134,6 +139,14 @@ var selectEmployee = function(eid){
 				str += "<tr><td>Name</td><td>"+o.name+"</td></tr>";
 				str += "<tr><td>Phone</td><td>"+o.phone+"</td></tr>";
 				str += "<tr><td>Part</td><td>"+o.part+"</td></tr>";
+				str += "<tr><td>Marriage</td><td>"+o.ismarriage+"</td></tr>";
+				str += "<tr><td>status</td><td>"+o.status+"</td></tr>";
+				str += "<tr><td>visitdate</td><td>"+o.visitdate+"</td></tr>";
+				str += "<tr><td>Receiver</td><td>"+o.rcv_name+"</td></tr>";
+				str += "<tr><td>Receiver Phone</td><td>"+o.rcv_phone+"</td></tr>";
+				str += "<tr><td>ETC</td><td>"+o.msg+"</td></tr>";
+
+				
 				$("#employee_info_tbody").html(str);
 
 				var hasitems = o.hasitems;
@@ -169,6 +182,7 @@ var selectEmployee = function(eid){
 	});
 
 refreshEmployeeCartHistory(eid);
+emptyCart();
 }
 
 var refreshEmployeeCartHistory = function(eid){
@@ -243,7 +257,8 @@ var createNewCart = function() {
 	
 	var confirm_msg = "Message: " + cart_data['msg'] + '\n';
 	for (var i in ticketinfo) {
-		confirm_msg += 'item_id: ' + ticketinfo[i].item_id + ', spend_count: ' + ticketinfo[i].spend_count + '\n';
+		var item = getItemFromMaster(ticketinfo[i].item_id);
+		confirm_msg += 'item : ' + item.name + '  ' + ticketinfo[i].spend_count + '매 \n';
 	}
 	var final_confirm = confirm(confirm_msg, "티켓 적용 내역입니다. 정말 수행하시겠습니까?");
 
@@ -395,6 +410,12 @@ var applyAllTicketsToCart = function(){
 		}
 	}
 	onchange_item_count();
+}
+
+var emptyCart = function(){
+	$("#item_in_cart_tbody").html('');
+	onchange_item_count();
+
 }
 
 var setupSignedUser = function(user){

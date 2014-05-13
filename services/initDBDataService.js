@@ -27,9 +27,9 @@ exports.initDBData = function(req, res){
 					};
 					console.log('cartdata: ' + JSON.stringify(cartdata));
 					cartDao.insertCart(cartdata, conn, function(err, rows){
-						console.log('insertCart err:' + err);
+						
 						if(err){
-
+							console.log('insertCart err:' + err);
 						} else {
 							var item_in_cart = cartdata['item_in_cart'];
 							var cart_id = rows.insertId;
