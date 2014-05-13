@@ -58,10 +58,10 @@ window.onload = function(){
 
 var showNewEmployeeModal = function(){
 	$("#newEmployeeSearchModal").modal({show:true, keyboard:true});
-			console.log("F2 - new Search Employee");
-			$('#newEmployeeSearchModal').on('shown.bs.modal', function () {
-				$('#newEmployeeSearchModalInput').focus();
-			});
+	console.log("F2 - new Search Employee");
+	$('#newEmployeeSearchModal').on('shown.bs.modal', function () {
+		$('#newEmployeeSearchModalInput').focus();
+	});
 }
 
 var resizeLayout = function(){
@@ -70,7 +70,14 @@ var resizeLayout = function(){
 	forFixedHeights.each(function(bo){
 		var elem = $(forFixedHeights[bo]);
 		var computedHeight = elem.parents().outerHeight()-elem.prev().outerHeight();
-		elem.css("height" ,computedHeight+"px");
+		if(computedHeight < 100){
+			computedHeight = $(window).outerHeight() -110;
+			elem.css("height" ,computedHeight+"px");	
+			console.log("resize to "+computedHeight);
+		}else{
+			elem.css("height" ,computedHeight+"px");	
+		}
+		
 	});
 };
 
