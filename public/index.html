@@ -146,13 +146,18 @@
 					</table>
 
 					<div style="text-align:right; margin-bottom:5px;">
-						<button class="btn btn-warning" onclick="emptyCart();" >초기화</button>
-						<button class="btn btn-primary" onclick="applyAllTicketsToCart();" >모두적용</button>
+						
+						
 					</div>
 
 					<div class="panel panel-info">
 						<div class="panel-heading" >
 							<span class="glyphicon glyphicon-shopping-cart"></span> 카트
+							<button class="btn btn-success btn-sm" onclick="newItemIntoCart();"><span class="glyphicon glyphicon-plus"></span></button>
+							<span style="float:right;">
+								<button class="btn btn-warning btn-sm" onclick="emptyCart();" >초기화</button>
+								<button class="btn btn-primary btn-sm" onclick="applyAllTicketsToCart();" >모두적용</button>
+							</span>
 						</div>
 
 						<table class="panel-body table table-condensed">
@@ -165,19 +170,15 @@
 
 							</tr>
 							<tbody id="item_in_cart_tbody"></tbody>
-							<tr>
-								<td colspan="2">
-									<button class="btn btn-primary" onclick="newItemIntoCart();">새 항목 추가</button>
-								</td>
-								<td colspan="2" align="right"> 
-									<span id="cart_sum_msg">0 Tickets  0 원 </span>
-								</td>
-							</tr>
+							
 							<tr>
 								<td colspan="4" style='border-top:none;'><textarea class="form-control" id="cart_message" style="resize: none; wrap: hard;" rows=3 cols=64> </textarea></td>
 							</tr>
 							<tr>
-								<td colspan="4" align="right" style='border-top:none;'><button class="btn btn-primary" onclick="createNewCart();">submit</button></td>
+								<td colspan="2" align="left"> 
+									<span id="cart_sum_msg">0 Tickets  0 원 </span>
+								</td>
+								<td colspan="2" align="right" style='border-top:none;'><button class="btn btn-primary" onclick="createNewCart();">submit</button></td>
 							</tr>
 						</table>
 						<!--<input type="checkbox" /> change status to done.-->	
