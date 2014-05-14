@@ -78,6 +78,7 @@ exports.getCartsByEmployee = function(req, res){
 				item.item_type = o.item_type;
 				item.item_money = o.item_money;
 				item.item_cnt = o.cnt;
+				item.item_desc = o.item_desc;
 
 				items.push(item);
 				

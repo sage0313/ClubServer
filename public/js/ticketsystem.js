@@ -151,7 +151,7 @@ var selectEmployee = function(eid){
 				str += "<tr><td>방문예정일자</td><td>"+o.visitdate+"</td></tr>";
 				
 				str += "<tr><td>ETC</td><td>"+o.msg+"</td></tr>";
-				if((o.m_adult+o.m_child)>=0){
+				if((o.m_adult+o.m_child)>0){
 					str += "<tr><td colspan=2><div class='alert alert-danger'>연간회원권("+o.m_adult+","+o.m_child+") 확인하기</div></td></tr>";
 				}
 				$("#employee_info_tbody").html(str);
@@ -220,7 +220,8 @@ var refreshEmployeeCartHistory = function(eid){
 						}
 						for(var ii in o.items){
 							var item = o.items[ii];
-							str +="<tr><td>"+item.item_name+"</td>";
+							var desc = getItemFromMaster(item.item_id).desc;
+							str +="<tr><td title='"+item.item_desc+"'>"+item.item_name+"</td>";
 							str +="<td>"+item.item_cnt+"</td>";
 							str +="<td>"+(item.item_cnt*item.item_money)+"</td>";
 							str +="</tr>";
