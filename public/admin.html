@@ -22,7 +22,7 @@
 	<table style="border-collapse:separate;border-spacing:5px;height:100%; width:100%;">
 		<tr style="height:100px;">
 			<td >
-					<h1 style="margin-top:1px;"> &nbsp;<span class='glyphicon glyphicon-send'></span> Ticket System </h1>
+					<h1 style="margin-top:1px;"> &nbsp;<a href="/"><span class='glyphicon glyphicon-send'></span></a> Ticket System </h1>
 			</td>
 			<td >
 					<ul class="nav nav-pills" style="float:right;">
@@ -41,7 +41,8 @@
 
 						<select class="form-control input-sm" id="search_type_select" onchange='onchange_search_type();'>
 							<option>-- 조회 메소드 선택</option>
-							<option value="1" >시간 간격별 Item 수량조사</option>
+							<option value="1" >유저 정보</option>
+							<option value="2" >시간 간격별 Item 수량조사</option>
 						</select>
 					</form>
 					</div>
@@ -50,9 +51,10 @@
 
 				<div class="panel panel-primary" style="position:relative;height:100%;">
 					<div class="panel-heading">
-						<span class="glyphicon glyphicon-search"></span> 조회 결과
+						<span class="glyphicon glyphicon-search"></span> 조회 결과 ( Message : <span id="result_msg"></span> )
 					</div>
-					<table class="panel-body" id="result_table"></table>
+
+					<div class="panel-body" id="result_table"></div>
 				</div>
 			</td>
 		</tr>

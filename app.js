@@ -170,8 +170,11 @@ app.post('/initDB', function(req, res) {
 /*******************
  * admin
 ********************/
-app.post('/admin/query', function(req, res) {
-	adminService.adminQuery(req, res);
+app.get('/admin/user', function(req, res) {
+	adminService.searchUser(req, res);
+});
+app.put('/admin/userrole', function(req, res) {
+	adminService.changeUserRole(req, res);
 });
 
 

@@ -30,6 +30,10 @@ CREATE TABLE `employee` (
 	`rcv_phone`	varchar(13) NOT NULL,
 	`part`	varchar(50) NOT NULL,
 	`msg` varchar(1024) NOT NULL,
+	`m_adult` int default 0, 
+	`m_child` int default 0, 
+	`p_adult` int default 0, 
+	`p_child` int default 0,
 	PRIMARY KEY(`id`)
 	, UNIQUE (`sn`)
 );

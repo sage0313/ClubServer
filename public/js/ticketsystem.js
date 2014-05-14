@@ -152,8 +152,9 @@ var selectEmployee = function(eid){
 				str += "<tr><td>Receiver</td><td>"+o.rcv_name+"</td></tr>";
 				str += "<tr><td>Receiver Phone</td><td>"+o.rcv_phone+"</td></tr>";
 				str += "<tr><td>ETC</td><td>"+o.msg+"</td></tr>";
-
-				
+				if((o.m_adult+o.m_child)>=0){
+					str += "<tr><td colspan=2><div class='alert alert-danger'>연간회원권("+o.m_adult+","+o.m_child+") 확인하기</div></td></tr>";
+				}
 				$("#employee_info_tbody").html(str);
 
 				var hasitems = o.hasitems;
@@ -431,6 +432,11 @@ var setupSignedUser = function(user){
 	console.log('signedUser: ' + user);
 	console.log('::: ' + JSON.stringify(user));
 	curr_uid = user.id;
+
+	if(user.role=="admin"){
+		var str = "<a href='/admin'>Admin Page</a>";
+		$("#admin_button").html(str);
+	}
 };
 
 var newEmployeeSearch  = function(){
