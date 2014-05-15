@@ -10,7 +10,7 @@ insert into item(id, name, description, type, money) values(7, '현금 대인 �
 insert into item(id, name, description, type, money) values(8, '현금 소인 티켓', '(현금구매) 소인 자유이용권','cash', -13000);
 insert into item(id, name, description, type, money) values(9, '추가 대인 티켓', '(추가구매:구매최대수량초과시) 대인 자유이욕권','cash', -28000);
 insert into item(id, name, description, type, money) values(10, '추가 소인 티켓', '(추가구매:구매최대수량초과시) 소인 자유이용권','cash', -12000);
-insert into item(id, name, description, type, money) values(11, '기타 금액', '기타 금액 사용 1매당 1원 카운트','cash', -1);
+insert into item(id, name, description, type, money) values(11, '기타 금액', '기타 금액 사용 1매당 1원 카운트','money', -1);
 
 
 insert into user(userid, username, userpwd, role) values('admin', 'Administrator', password('passw0rd'), 'admin');

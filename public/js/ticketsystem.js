@@ -165,11 +165,22 @@ var selectEmployee = function(eid){
 					hi_str += "<tr>";
 					hi_str += "<td title='"+hio.description+"'>"+hio.name+"</td>";
 					hi_str += "<td>"+hio.type+"</td>";
-					hi_str += "<td>"+hio.cnt+"<span id='hasitem_cnt_change_"+hio.id+"' class='hasitem_cnt_change'></span> ea";
+
+					hi_str += "<td>";
+					var CurCount = hio.cnt;
+					if (hio.type !== 'money') {
+						if (hio.type === 'cash') {
+							CurCount = (-1) * CurCount;
+						}
+						hi_str += CurCount+"<span id='hasitem_cnt_change_"+hio.id+"' class='hasitem_cnt_change'></span> ea";
+					}
 					if(hio.money!=0){
+						var CurMoney;
 						hi_str+=" <br/> &#8361 "+hio.money*hio.cnt + " <span id='hasitem_money_change_"+hio.id+"' class='hasitem_money_change'></span>" ;
-						cnt_cash += hio.cnt;
-						sum_cash += (hio.cnt*hio.money);
+						if (hio.type === 'cash') {
+							cnt_cash += CurCount;
+						}
+						sum_cash += (hio.money*hio.cnt);
 					}else{
 						cnt_ticket += hio.cnt;
 					}
@@ -266,7 +277,7 @@ var createNewCart = function() {
 		var spend_count = input[0].value;
 		console.log('spend_count: ' + parseInt(spend_count));
 		
-		ticketinfo.push({'item_id':item_id, 'spend_count':spend_count});
+		ticketinfo.push({'item_id':item_id, 'spend_count':(-1)*spend_count});
 	}
 	cart_data['item_in_cart'] = ticketinfo;
 	console.log('cart_data: ' + JSON.stringify(cart_data));
@@ -275,7 +286,12 @@ var createNewCart = function() {
 	var confirm_msg = "Message: " + cart_data['msg'] + '\n';
 	for (var i in ticketinfo) {
 		var item = getItemFromMaster(ticketinfo[i].item_id);
-		confirm_msg += 'item : ' + item.name + '  ' + ticketinfo[i].spend_count + '매 \n';
+		confirm_msg += 'item : ' + item.name + '  ' + (-1)*ticketinfo[i].spend_count 
+		if (item.type === "money") {
+			confirm_msg += '원 \n';
+		} else {
+			confirm_msg += '매 \n';
+		}
 	}
 	var final_confirm = confirm(confirm_msg, "티켓 적용 내역입니다. 정말 수행하시겠습니까?");
 
@@ -362,10 +378,16 @@ var onchange_item_count = function(){
 		if(isNaN(itemcnt)) itemcnt=0;
 		var item = getItemFromMaster(typeid);
 		if(item.money!=0){
-			$("#item_money_"+cntid).html((item.money*itemcnt).format());
-			cartmoneyresult += item.money*itemcnt;
+
+			var inpMoney = item.money * (-1) * itemcnt;
+
+			$("#item_money_"+cntid).html((inpMoney).format());
+			cartmoneyresult += inpMoney;
 		}
-		cartcountresult+= itemcnt;
+
+		if (item.type !== 'money') {
+			cartcountresult+= itemcnt;
+		}
 		
 		console.log("cntid", cntid,"typeid", typeid,"itemcnt",itemcnt);
 		if(!cartresult[typeid]){
@@ -386,18 +408,36 @@ var onchange_item_count = function(){
 		if(cartresult[idx]!=0){
 			if(temp_hasitems[idx]){
 				var tempitem = temp_hasitems[idx];
-				$("#hasitem_cnt_change_"+idx).html("<span style='color:blue;'> &#187; "+(tempitem.cnt+cartresult[idx])+"</span>");
+
+				console.log('tempitem : ' + tempitem);
+				console.log('tempitem : ' + JSON.stringify(tempitem));
+
+				var newCount = tempitem.cnt-cartresult[idx];
+
+				if (tempitem.type !== 'money') {
+					var displayCnt = newCount;
+					if (tempitem.type === 'cash') {
+						displayCnt = (-1) * displayCnt;	
+					} 
+					$("#hasitem_cnt_change_"+idx).html("<span style='color:blue;'> &#187; "+(displayCnt)+"</span>");
+				}
+
 				if(tempitem.money!=0){
-					$("#hasitem_money_change_"+idx).html("<span style='color:blue;'> &#187; "+((tempitem.cnt+cartresult[idx])*tempitem.money).format()+"</span>");
+					$("#hasitem_money_change_"+idx).html("<span style='color:blue;'> &#187; "+(newCount*tempitem.money).format()+"</span>");
 				}
 			}else{				
 				var hio = getItemFromMaster(idx);
 				var str ="<tr style='color:blue;'>";	
 				str += "<td title='"+hio.description+"'>"+hio.name+"</td>";
 				str += "<td>"+hio.type+"</td>";
-				str += "<td>"+cartresult[idx]+" ea";
+
+				str += "<td>";
+				if (hio.type !== "money") {
+					str += cartresult[idx]+" ea";
+				}
 				if(hio.money!=0){
-					str+=" / &#8361 "+hio.money*cartresult[idx] + "" ;
+					if (hio.type !== "money") str += " / "
+					str+="&#8361 "+(hio.money*(-1)*cartresult[idx]);
 				}
 				str += "</td>";
 				str += "</tr>";
@@ -422,7 +462,7 @@ var applyAllTicketsToCart = function(){
 		for(var idx in selectedEmployee.hasitems){
 			var item = selectedEmployee.hasitems[idx];
 			if(item.type=="ticket" && item.cnt > 0 ){
-				newItemIntoCart(item.id, 0-item.cnt);
+				newItemIntoCart(item.id, item.cnt);
 			}
 		}
 	}
