@@ -47,7 +47,7 @@ exports.createCart = function(req, res){
 		if (err) {
 			res.send({"status":"error","error":err});		
 		} else {
-			cartDao.createCart(req.body, conn, function(err, rows){
+			cartDao.insertCart(req.body, conn, function(err, rows){
 				console.log('[createCart] createCart callback');
 				console.log('err:' + err);
 				console.log('rows: ' + rows);
