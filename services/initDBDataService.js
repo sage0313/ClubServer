@@ -104,7 +104,6 @@ exports.createEmployee = function(empinfo){
 
 				}
 			});
-			res.send({"status":"success","ret":""});
 		}
 	});
 };
