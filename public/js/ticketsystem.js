@@ -104,7 +104,6 @@ var searchEmployee = function(type,query){
 					str += "<td>"+o.sn+"</td>";
 					str += "<td>"+o.name+"</td>";
 					str += "<td>"+o.phone+"</td>";
-					str += "<td>"+o.part+"</td>";
 					str += "</tr>";
 				}
 				$("#search_result_tbody").html(str);
