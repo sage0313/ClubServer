@@ -8,7 +8,7 @@ var dbpool = mysql.createPool({
 	user:'ticketuser',
 	password:'passw0rd',
 	database:'ticketdb',
-	connectionLimit:20,
+	connectionLimit:50,
 	waitForConnections:true
 });
 
