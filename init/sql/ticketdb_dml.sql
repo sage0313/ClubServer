@@ -21,11 +21,6 @@ insert into user(userid, username, userpwd, role) values('test01', 'test01user',
 insert into user(userid, username, userpwd, role) values('test02', 'test02user', password('passw0rd'), 'user');
 insert into user(userid, username, userpwd, role) values('test03', 'test03user', password('passw0rd'), 'user');
 insert into user(userid, username, userpwd, role) values('test04', 'test04user', password('passw0rd'), 'user');
-insert into user(userid, username, userpwd, role) values('test05', 'test05user', password('passw0rd'), 'user');
-insert into user(userid, username, userpwd, role) values('test06', 'test06user', password('passw0rd'), 'user');
-insert into user(userid, username, userpwd, role) values('test07', 'test07user', password('passw0rd'), 'user');
-insert into user(userid, username, userpwd, role) values('test08', 'test08user', password('passw0rd'), 'user');	
-insert into user(userid, username, userpwd, role) values('test09', 'test09user', password('passw0rd'), 'user');	
 -- insert into employee(sn, name, phone, part, status) values('012345', 'SungKyu Sim', '010-0000-0000', 'KLAB', 'Init');
 -- insert into employee(sn, name, phone, part, status) values('123456', 'YongJun Kim', '010-1111-1111', 'KLAB', 'Init');
 -- insert into employee(sn, name, phone, part, status) values('234567', 'Nuri Kim', '010-2222-2222', 'GB', 'Init');
