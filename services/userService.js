@@ -14,11 +14,15 @@ exports.signin = function(req, res){
 		}
 		userDao.signcheck(userid, userpwd, conn, function(err, rows){
 			if(err){					
-				res.send({"status":"error","error":""+err});
+				res.send({"status":"error","error":err});
 			} else {
 				if(rows.length===1){
-					req.session.loginUser = rows[0];
-					res.send({"status":"success"});
+					if(rows[0].role=="ready"){
+						res.send({"status":"error","error":"check your permission."});
+					} else {
+						req.session.loginUser = rows[0];
+						res.send({"status":"success"});
+					}
 				} else {
 					res.send({"status":"error","error":"check your id or password."});
 				}
@@ -35,8 +39,9 @@ exports.signout = function(req, res){
 exports.signup = function(req, res){
 	base.execute(req, res, function(req, res, conn){
 		var user = {userid: req.body.userid, 
-					username:req.body.username, 
-					userpwd:req.body.userpwd};
+			username:req.body.username, 
+			userpwd:req.body.userpwd};
+
 
 		console.log('[signup]');
 		console.log('user:' + user);
@@ -45,12 +50,11 @@ exports.signup = function(req, res){
 			console.log('err: ' + err);
 			console.log('rows: ' + rows);
 			if(err) {
-				res.send({"status":"error","error":""+err});
+				res.send({"status":"error","error":err});
 			} else {
 				res.send({"status":"success"});
 			}
 		});
-	});
 };
 
 exports.getSigninUser = function(req, res){
@@ -65,7 +69,7 @@ exports.getUser = function(req, res){
 			console.log('err: ' + err);
 			console.log('rows: ' + rows);
 			if(err) {
-				res.send({"status":"error","error":""+err});
+				res.send({"status":"error","error":err});
 			} else {
 				res.send({"status":"success","ret":rows});
 			}

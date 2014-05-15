@@ -106,7 +106,6 @@ var searchEmployee = function(type,query){
 					str += "<td>"+o.phone+"</td>";
 					str += "<td>"+o.part+"</td>";
 					str += "</tr>";
-					
 				}
 				$("#search_result_tbody").html(str);
 				$(".employee_item").on("click",function(e){
@@ -143,17 +142,18 @@ var selectEmployee = function(eid){
 				console.log("selectedEmployee", selectedEmployee);
 				var str ="";
 				str += "<tr><td>SN</td><td>"+o.sn+"</td></tr>";
-				str += "<tr><td>Name</td><td>"+o.name+"</td></tr>";
-				str += "<tr><td>Phone</td><td>"+o.phone+"</td></tr>";
-				str += "<tr><td>Part</td><td>"+o.part+"</td></tr>";
-				str += "<tr><td>Marriage</td><td>"+o.ismarriage+"</td></tr>";
-				str += "<tr><td>status</td><td>"+o.status+"</td></tr>";
-				str += "<tr><td>visitdate</td><td>"+o.visitdate+"</td></tr>";
-				str += "<tr><td>Receiver</td><td>"+o.rcv_name+"</td></tr>";
-				str += "<tr><td>Receiver Phone</td><td>"+o.rcv_phone+"</td></tr>";
-				str += "<tr><td>ETC</td><td>"+o.msg+"</td></tr>";
-
+				str += "<tr><td>신청자</td><td>"+o.name+" / "+o.phone+"</td></tr>";
+				str += "<tr><td>수령자</td><td>"+o.rcv_name+" / "+o.rcv_phone+"</td></tr>";
+				str += "<tr><td>부서</td><td>"+o.part+"</td></tr>";
+				str += "<tr><td>결혼여부</td><td>"+o.ismarriage+"</td></tr>";
+				str += "<tr><td>회원권(대인/소인)</td><td>연간( "+o.m_adult+" , "+o.m_child+" ) / 구매( "+o.p_adult+" , "+o.p_child+" )</td></tr>";
+				str += "<tr><td>상태</td><td>"+o.status+"</td></tr>";
+				str += "<tr><td>방문예정일자</td><td>"+o.visitdate+"</td></tr>";
 				
+				str += "<tr><td>ETC</td><td>"+o.msg+"</td></tr>";
+				if((o.m_adult+o.m_child)>0){
+					str += "<tr><td colspan=2><div class='alert alert-danger'>연간회원권("+o.m_adult+","+o.m_child+") 확인하기</div></td></tr>";
+				}
 				$("#employee_info_tbody").html(str);
 
 				var hasitems = o.hasitems;
@@ -209,13 +209,24 @@ var refreshEmployeeCartHistory = function(eid){
 						str += "User : "+ o.user_name + " ( <span class='timecolumn' t="+(o.tmstmp*1000)+">" + getTimeColumnString(o.tmstmp*1000) +  "</span> )";
 						str += "</div>";
 						str += "<table class='panel-body table table-condensed'>";
-						str += "<tr><td>Item</td><td>Count</td></tr>";
+						{
+							var sumcnt = 0, summoney=0;
+							for(var ii in o.items){
+								var item = o.items[ii];
+								sumcnt +=item.item_cnt;
+								summoney += item.item_cnt * item.item_money;
+							}
+							str += "<tr><td>Item</td><td>Count( "+sumcnt+" )</td><td>Money( "+summoney+" )</td></tr>";
+						}
 						for(var ii in o.items){
 							var item = o.items[ii];
-							str +="<tr><td>"+item.item_name+"</td>";
-							str +="<td>"+item.item_cnt+"</td></tr>";
+							var desc = getItemFromMaster(item.item_id).desc;
+							str +="<tr><td title='"+item.item_desc+"'>"+item.item_name+"</td>";
+							str +="<td>"+item.item_cnt+"</td>";
+							str +="<td>"+(item.item_cnt*item.item_money)+"</td>";
+							str +="</tr>";
 						}
-						str += "<tr><td colspan=2><span class='glyphicon glyphicon-comment'></span> Message : "+o.msg+"</td></tr>";
+						str += "<tr><td colspan=3><span class='glyphicon glyphicon-comment'></span> Message : "+o.msg+"</td></tr>";
 						str += "</table>"
 						str += "</div>";
 					}
@@ -431,6 +442,11 @@ var setupSignedUser = function(user){
 	console.log('signedUser: ' + user);
 	console.log('::: ' + JSON.stringify(user));
 	curr_uid = user.id;
+
+	if(user.role=="admin"){
+		var str = "<a href='/admin'>Admin Page</a>";
+		$("#admin_button").html(str);
+	}
 };
 
 var newEmployeeSearch  = function(){

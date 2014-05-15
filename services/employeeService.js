@@ -71,7 +71,6 @@ exports.getCartsByEmployee = function(req, res){
 					var o = rows[i];
 
 					var cart = new Object();
-
 					if(!cartlist[o.cart_id]){
 						cart.cart_id = o.cart_id;
 						cart.emp_id = o.emp_id;
@@ -91,12 +90,9 @@ exports.getCartsByEmployee = function(req, res){
 					item.item_type = o.item_type;
 					item.item_money = o.item_money;
 					item.item_cnt = o.cnt;
-
+					item.item_desc = o.item_desc;
 					items.push(item);
-					
-
 				}
-
 				res.send({"status":"success","ret":cartlist});
 			}
 		});
