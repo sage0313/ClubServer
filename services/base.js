@@ -17,12 +17,16 @@ exports.execute = function(req, res, callback){
 		callback = res;
 		dbpool.getConnection(function(err,connection){
 			callback(req, connection);
-			connection.release();
+			if (connection) {
+				connection.release();
+			}
 		});
 	} else {
 		dbpool.getConnection(function(err,connection){
 			callback(req, res, connection);
-			connection.release();
+			if (connection) {
+				connection.release();
+			}
 		});
 	}
 
