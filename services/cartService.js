@@ -6,71 +6,74 @@ var cartDao = require('./dao/cartDao');
 
 
 exports.getTicketInfofromCarts = function(req, res) {
-	base.execute(req, res, function(req, res, conn){
-		var eid = req.params.eid;
-		cartDao.selectTicketStatusByEmployee(eid, conn, function(err, rows) {
+	base.executeRest(req, res, function(err, req, res, conn){
 
-			console.log('[getTicketInfofromCarts] selectTicketStatusByEmployee callback');
-			console.log('err:' + err);
-			console.log('rows: ' + rows);
+		if (err) {
+			res.send({"status":"error","error":err});		
+		} else {
+			var eid = req.params.eid;
+			cartDao.selectTicketStatusByEmployee(eid, conn, function(err, rows) {
 
-			if (err) {
-				res.send({"status":"error","error":err});
-			} else {
-				var ticketlist = [];
-				for (var i in rows) {
-					var obj = rows[i];
-					// console.log('ticket info: ' + o);
+				console.log('[getTicketInfofromCarts] selectTicketStatusByEmployee callback');
+				console.log('err:' + err);
+				console.log('rows: ' + rows);
 
-					var ticket = {};
-					ticket.name = obj.name;
-					ticket.type = obj.type;
-					ticket.count = obj['sum(ic.spend_count)'];
+				if (err) {
+					res.send({"status":"error","error":err});
+				} else {
+					var ticketlist = [];
+					for (var i in rows) {
+						var obj = rows[i];
+						// console.log('ticket info: ' + o);
 
-					ticketlist.push(ticket);
+						var ticket = {};
+						ticket.name = obj.name;
+						ticket.type = obj.type;
+						ticket.count = obj['sum(ic.spend_count)'];
+
+						ticketlist.push(ticket);
+					}
+
+					res.send({"status":"success","ret":ticketlist});				
 				}
-
-				res.send({"status":"success","ret":ticketlist});				
-			}
-
-		});
-
+			});
+		}
 	});
 };
 
 
 exports.createCart = function(req, res){
-	base.execute(req, res, function(req, res, conn){
+	base.executeRest(req, res, function(err, req, res, conn){
+		if (err) {
+			res.send({"status":"error","error":err});		
+		} else {
+			cartDao.createCart(req.body, conn, function(err, rows){
+				console.log('[createCart] createCart callback');
+				console.log('err:' + err);
+				console.log('rows: ' + rows);
+				if(err){
+					res.send({"status":"error","error":err});
+				} else {
+					var cart_id = rows.insertId;
+					var item_in_cart = req.body.item_in_cart;
 
-		// console.log('createCart');
-		// console.log('args ' + JSON.stringify(req.body));
-
-		cartDao.createCart(req.body, conn, function(err, rows){
-			console.log('[createCart] createCart callback');
-			console.log('err:' + err);
-			console.log('rows: ' + rows);
-			if(err){
-				res.send({"status":"error","error":err});
-			} else {
-				var cart_id = rows.insertId;
-				var item_in_cart = req.body.item_in_cart;
-
-				for (var index in item_in_cart) {
-					// console.log('item_info: ' + item_in_cart[index]);
-					var query_info = item_in_cart[index];
-					query_info['cart_id'] = cart_id;
-					cartDao.insertItemInCart(query_info, conn, function(err, rows) {
-						console.log('[createCart] insertItemInCart callback');
-						console.log('err:' + err);
-						console.log('rows: ' + rows);
-						if (err) {
-							res.send({"status":"error","error":err});
-						}
-					});
+					for (var index in item_in_cart) {
+						// console.log('item_info: ' + item_in_cart[index]);
+						var query_info = item_in_cart[index];
+						query_info['cart_id'] = cart_id;
+						cartDao.insertItemInCart(query_info, conn, function(err, rows) {
+							console.log('[createCart] insertItemInCart callback');
+							console.log('err:' + err);
+							console.log('rows: ' + rows);
+							if (err) {
+								res.send({"status":"error","error":err});
+							}
+						});
+					}
+					res.send({"status":"success","ret":rows});
 				}
-				res.send({"status":"success","ret":rows});
-			}
-		});
+			});
+		}
 	});
 };
 

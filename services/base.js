@@ -12,22 +12,20 @@ var dbpool = mysql.createPool({
 	waitForConnections:false
 });
 
-exports.execute = function(req, res, callback){	
-	if(typeof callback === "undefined"){
-		callback = res;
-		dbpool.getConnection(function(err,connection){
-			callback(req, connection);
-			if (connection) {
-				connection.release();
-			}
-		});
-	} else {
-		dbpool.getConnection(function(err,connection){
-			callback(req, res, connection);
-			if (connection) {
-				connection.release();
-			}
-		});
-	}
+exports.executeRest = function(req, res, callback){	
+	dbpool.getConnection(function(err,connection){
+		callback(err, req, res, connection);
+		if (connection) {
+			connection.release();
+		}
+	});
+};
 
+exports.executeFile = function(data, callback){	
+	dbpool.getConnection(function(err,connection){
+		callback(err, data, connection);
+		if (connection) {
+			connection.release();
+		}
+	});
 };

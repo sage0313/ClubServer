@@ -8,10 +8,10 @@ var base = require('../base');
 // admin = admin 
 
 exports.signcheck = function(userid, userpwd, conn, callback){
-	var userid = conn.escape(userid);
-	var userpwd = conn.escape(userpwd);
-	var query = " select id, userid, username, role from user "
-	+" where userid = "+userid+ " and userpwd = password("+userpwd+")  ";
+	var uid = conn.escape(userid);
+	var upwd = conn.escape(userpwd);
+	var query = " select id, userid, username, role from user " + 
+				" where userid = "+uid+ " and userpwd = password("+upwd+")  ";
 	
 	console.log("query="+query);
 	conn.query(query,function(err, rows, fields) {
@@ -45,8 +45,8 @@ exports.insertUser = function(userinfo, conn, callback){
 	var username = conn.escape(userinfo.username);
 	var userpwd = conn.escape(userinfo.userpwd);
 	var userrole = conn.escape('ready'); //conn.escape(userinfo.role);
-	var query = " insert into user (userid, username, userpwd, role) "
-	+ " values(" + userid +" , " + username + " , password("+ userpwd + "), " + userrole+" ) ";
+	var query = " insert into user (userid, username, userpwd, role) " + 
+				" values(" + userid +" , " + username + " , password("+ userpwd + "), " + userrole+" ) ";
 
 	console.log("query="+query);
 	conn.query(query, function(err, rows, fields){
@@ -82,11 +82,10 @@ exports.updateUserRole = function(userinfo, conn , callback){
 	var id = conn.escape(userinfo.id);
 	var fromrole = conn.escape(userinfo.fromrole);
 	var torole = conn.escape(userinfo.torole);
-	var query 
-	var query = " update user set role = "+torole+" where id="+id+" and role = "+fromrole+ " " ;
+	var query = " update user set role = "+torole+" where id="+id+" and role = "+fromrole+" ";
 
 	console.log("query="+query);
 	conn.query(query, function(err, rows, fields){
 		callback(err, rows);
 	});
-}
+};

@@ -36,7 +36,7 @@ exports.insertEmployee = function(emp, conn, callback) {
 exports.selectEmployeeById = function(idarg, conn, callback) {
 	var id = conn.escape(idarg);
 	var query = selectColumns + 
-				+ " where id = " + id;
+				" where id = " + id;
 	console.log("query="+query);
 	conn.query(query,function(err, rows, fields) {
 		callback(err,rows);

@@ -5,6 +5,7 @@
 var base = require('../base');
 
 exports.insertCart = function(cartarg, conn, callback) {
+
 	var emp_id = conn.escape(cartarg.emp_id);
 	var user_id = conn.escape(cartarg.user_id);
 	var msg = conn.escape(cartarg.msg);
