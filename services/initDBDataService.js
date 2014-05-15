@@ -63,7 +63,9 @@ exports.createEmployee = function(empinfo){
 			// console.log('insertEmployee err: ' + err);
 			// console.log('rows: ' + JSON.stringify(rows));
 			if (err) {
+			} else if(!rows.newCart){
 			} else {
+
 				var cartdata = {
 					"emp_id": rows.insertId,
 					"user_id": rows.newCart['user_id'],

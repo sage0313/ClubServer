@@ -9,7 +9,7 @@ var dbpool = mysql.createPool({
 	password:'passw0rd',
 	database:'ticketdb',
 	connectionLimit:20,
-	waitForConnections:false
+	waitForConnections:true
 });
 
 exports.execute = function(req, res, callback){	

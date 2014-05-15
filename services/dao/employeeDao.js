@@ -19,9 +19,17 @@ exports.insertEmployee = function(emp, conn, callback) {
 	var rcv_phone = conn.escape(emp.rcv_phone);
 	var part = conn.escape(emp.part);
 	var msg = conn.escape(emp.msg);
+	var m_adult = conn.escape(emp.m_adult);
+	var m_child = conn.escape(emp.m_child);
+	var p_adult = conn.escape(emp.p_adult);
+	var p_child = conn.escape(emp.p_child);
+	if(isNaN(m_adult)) m_adult = 0;
+	if(isNaN(m_child)) m_child = 0;
+	if(isNaN(p_adult)) p_adult = 0;
+	if(isNaN(p_child)) p_child = 0;
 
-	var query = " insert into employee(sn, name, phone, visitdate, ismarriage, status, rcv_name, rcv_phone, part, msg) " +
-				" values( "+sn+","+name+","+phone+","+visitdate+","+ismarriage+","+status+","+rcv_name+","+rcv_phone+","+part+","+msg+");";
+	var query = " insert into employee(sn, name, phone, visitdate, ismarriage, status, rcv_name, rcv_phone, part, msg,m_adult, m_child, p_adult, p_child) " 
+	+" values( "+sn+","+name+","+phone+","+visitdate+","+ismarriage+","+status+","+rcv_name+","+rcv_phone+","+part+","+msg+", "+m_adult+","+m_child+","+ p_adult+","+p_child+");";
 
 	console.log("query="+query);
 	conn.query(query,function(err, rows, fields) {
