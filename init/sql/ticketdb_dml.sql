@@ -30,6 +30,8 @@ insert into user(userid, username, userpwd, role) values('test09', 'test09user',
 -- insert into employee(sn, name, phone, part, status) values('123456', 'YongJun Kim', '010-1111-1111', 'KLAB', 'Init');
 -- insert into employee(sn, name, phone, part, status) values('234567', 'Nuri Kim', '010-2222-2222', 'GB', 'Init');
 -- insert into employee(sn, name, phone, part, status) values('345678', 'Youngju Jung', '010-3333-3333', 'GTS', 'Init');
+
+/*
 insert into employee(sn, name, phone, visitdate, ismarriage, status, rcv_name, rcv_phone, part,  msg) 
 	values('052825', '김혜윤', '010-4995-5971','2014.05.24', '기혼' , '입금완료' , '김혜윤', '010-4995-5971', 'GTS',  '-' );
 insert into employee(sn, name, phone, visitdate, ismarriage, status, rcv_name, rcv_phone, part,  msg) 
@@ -55,7 +57,7 @@ insert into item_in_cart(cart_id, item_id, spend_count) values(3, 2, 2);
 insert into item_in_cart(cart_id, item_id, spend_count) values(3, 3, 4);
 
 
-
+*/
 
 
 /* admin user */ 
