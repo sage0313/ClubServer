@@ -54,10 +54,10 @@ exports.initDBData = function(req, res){
 					}
 
 				});
-			}
-		res.send({"status":"success","ret":""});
-		}
-	});
+}
+res.send({"status":"success","ret":""});
+}
+});
 };
 
 
@@ -66,8 +66,6 @@ exports.createEmployee = function(empinfo){
 
 		if (err) {
 			console.log('createEmployee base err:' + err);
-		} else if(!rows.newCart){
-			console.log('[createEmployee] no cart data');
 		} else {
 
 			employeeDao.insertEmployee(empinfo, conn, function(err, rows){
@@ -75,6 +73,10 @@ exports.createEmployee = function(empinfo){
 				console.log('err: ' + err);
 				console.log('rows: ' + JSON.stringify(rows));
 				if (err) {
+					console.log('employeeDao.insertEmployee err:' + err);
+				} else if(!rows.newCart){
+					console.log('[createEmployee] no cart data');
+
 				} else {
 					var cartdata = {
 						"emp_id": rows.insertId,
@@ -104,7 +106,6 @@ exports.createEmployee = function(empinfo){
 
 				}
 			});
-			res.send({"status":"success","ret":""});
-		}
-	});
+}
+});
 };

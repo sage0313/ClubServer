@@ -23,10 +23,26 @@ exports.insertEmployee = function(emp, conn, callback) {
 	var m_child = conn.escape(emp.m_child);
 	var p_adult = conn.escape(emp.p_adult);
 	var p_child = conn.escape(emp.p_child);
-	if(isNaN(m_adult)) m_adult = 0;
-	if(isNaN(m_child)) m_child = 0;
-	if(isNaN(p_adult)) p_adult = 0;
-	if(isNaN(p_child)) p_child = 0;
+	if(isNaN(parseInt(m_adult))){
+		m_adult = 0;		
+	} else{
+		m_adult = parseInt(m_adult);
+	}
+	if(isNaN(parseInt(m_child))){
+		m_child = 0;	
+	} else{
+		m_child = parseInt(m_child);
+	}
+	if(isNaN(parseInt(p_adult))){
+		p_adult = 0;	
+	} else{
+		p_adult = parseInt(p_adult);
+	}
+	if(isNaN(parseInt(p_child))){
+		p_child = 0;	
+	} else{
+		p_child = parseInt(p_child);
+	}
 
 	var query = " insert into employee(sn, name, phone, visitdate, ismarriage, status, rcv_name, rcv_phone, part, msg,m_adult, m_child, p_adult, p_child) " 
 	+" values( "+sn+","+name+","+phone+","+visitdate+","+ismarriage+","+status+","+rcv_name+","+rcv_phone+","+part+","+msg+", "+m_adult+","+m_child+","+ p_adult+","+p_child+");";
@@ -44,7 +60,7 @@ exports.insertEmployee = function(emp, conn, callback) {
 exports.selectEmployeeById = function(idarg, conn, callback) {
 	var id = conn.escape(idarg);
 	var query = selectColumns + 
-				" where id = " + id;
+	" where id = " + id;
 	console.log("query="+query);
 	conn.query(query,function(err, rows, fields) {
 		callback(err,rows);
