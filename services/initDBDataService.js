@@ -91,19 +91,18 @@ exports.createEmployee = function(empinfo){
 						} else {
 							var item_in_cart = cartdata['item_in_cart'];
 							var cart_id = rows.insertId;
-							for (var subindex in item_in_cart) {
-							// console.log('item_info: ' + item_in_cart[subindex]);
-							var query_info = item_in_cart[subindex];
-							query_info['cart_id'] = cart_id;
-							cartDao.insertItemInCart(query_info, conn, function(err, rows) {
-								if (err) {
-									console.log('insertItemInCart err:' + err);
-								}
-							});
+								for (var subindex in item_in_cart) {
+								// console.log('item_info: ' + item_in_cart[subindex]);
+								var query_info = item_in_cart[subindex];
+								query_info['cart_id'] = cart_id;
+								cartDao.insertItemInCart(query_info, conn, function(err, rows) {
+									if (err) {
+										console.log('insertItemInCart err:' + err);
+									}
+								});
+							}
 						}
-					}
-				});
-
+					});
 				}
 			});
 		}
