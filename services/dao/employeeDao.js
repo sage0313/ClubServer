@@ -33,7 +33,9 @@ exports.insertEmployee = function(emp, conn, callback) {
 
 	console.log("query="+query);
 	conn.query(query,function(err, rows, fields) {
-		rows['newCart'] = emp.newCart;
+		if (rows) {
+			rows['newCart'] = emp.newCart;
+		}
 		callback(err, rows);
 	});
 };
@@ -41,8 +43,8 @@ exports.insertEmployee = function(emp, conn, callback) {
 
 exports.selectEmployeeById = function(idarg, conn, callback) {
 	var id = conn.escape(idarg);
-	var query = " "+ selectColumns;
-	query +=" where id = "+ id ;
+	var query = selectColumns + 
+				" where id = " + id;
 	console.log("query="+query);
 	conn.query(query,function(err, rows, fields) {
 		callback(err,rows);
@@ -51,7 +53,7 @@ exports.selectEmployeeById = function(idarg, conn, callback) {
 
 exports.selectEmployeeBy = function(querystringarg, type, conn, callback) {
 	var querystring = conn.escape('%'+querystringarg+'%');
-	var query =" "+ selectColumns;
+	var query = selectColumns;
 	if(type==="bysn" || type==="byall") {
 		query +=" where sn like " + querystring;
 	} 
