@@ -54,10 +54,10 @@ exports.initDBData = function(req, res){
 					}
 
 				});
-}
-res.send({"status":"success","ret":""});
-}
-});
+			}
+			res.send({"status":"success","ret":""});
+		}
+	});
 };
 
 
@@ -106,6 +106,6 @@ exports.createEmployee = function(empinfo){
 
 				}
 			});
-}
-});
+		}
+	});
 };
