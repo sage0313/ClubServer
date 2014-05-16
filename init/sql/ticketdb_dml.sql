@@ -10,7 +10,7 @@ insert into item(id, name, description, type, money) values(7, '현금 대인 �
 insert into item(id, name, description, type, money) values(8, '현금 소인 티켓', '(현금구매) 소인 자유이용권','cash', -13000);
 insert into item(id, name, description, type, money) values(9, '추가 대인 티켓', '(추가구매:구매최대수량초과시) 대인 자유이욕권','cash', -28000);
 insert into item(id, name, description, type, money) values(10, '추가 소인 티켓', '(추가구매:구매최대수량초과시) 소인 자유이용권','cash', -12000);
-insert into item(id, name, description, type, money) values(11, '기타 금액', '기타 금액 사용 1매당 1원 카운트','cash', -1);
+insert into item(id, name, description, type, money) values(11, '기타 금액', '기타 금액 사용 1매당 1원 카운트','money', -1);
 
 
 insert into user(userid, username, userpwd, role) values('admin', 'Administrator', password('passw0rd'), 'admin');
@@ -21,11 +21,6 @@ insert into user(userid, username, userpwd, role) values('test01', 'test01user',
 insert into user(userid, username, userpwd, role) values('test02', 'test02user', password('passw0rd'), 'user');
 insert into user(userid, username, userpwd, role) values('test03', 'test03user', password('passw0rd'), 'user');
 insert into user(userid, username, userpwd, role) values('test04', 'test04user', password('passw0rd'), 'user');
-insert into user(userid, username, userpwd, role) values('test05', 'test05user', password('passw0rd'), 'user');
-insert into user(userid, username, userpwd, role) values('test06', 'test06user', password('passw0rd'), 'user');
-insert into user(userid, username, userpwd, role) values('test07', 'test07user', password('passw0rd'), 'user');
-insert into user(userid, username, userpwd, role) values('test08', 'test08user', password('passw0rd'), 'user');	
-insert into user(userid, username, userpwd, role) values('test09', 'test09user', password('passw0rd'), 'user');	
 -- insert into employee(sn, name, phone, part, status) values('012345', 'SungKyu Sim', '010-0000-0000', 'KLAB', 'Init');
 -- insert into employee(sn, name, phone, part, status) values('123456', 'YongJun Kim', '010-1111-1111', 'KLAB', 'Init');
 -- insert into employee(sn, name, phone, part, status) values('234567', 'Nuri Kim', '010-2222-2222', 'GB', 'Init');
